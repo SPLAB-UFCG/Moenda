@@ -8,35 +8,29 @@ var rl = readline.createInterface({
 
 
 function contaLinhas(){
-	const names = []
-	const lineFiles = []
+	var retorno = new Map();
 
 	//Pedido de entrada
 	rl.question("Insira o caminho do dirétorio que deve ser analisado, Ex:/home/usuario/moenda/Moenda/doc \n", function(answer) {
 		
 		//Lendo todos os arquivos existenstes na pasta informada pelo usuário
-		fs.readdirSync(answer).forEach(file => {
-			names [names.length] = file;
+		var arrayFiles = fs.readdirSync(answer)
+		
+		//lendo arquivos específicos e adicionando a quantidade de linhas a variável 'retorno'.
+		for(var i = 0; i < arrayFiles.length; i++){
 
-			//lendo arquivos específicos
-			fs.readFile(answer + '/' + file, 'utf-8', function(err, data){
-			
-				var lines = data.split("\n");
-				var numberLines = lines.length;
+			const file = fs.readFileSync(answer + "/" + arrayFiles[i], "utf-8");
 
-				lineFiles.push(numberLines);
-				
-				console.log("\nNome: " + file + "\nNúmero de linhas: " + numberLines + "\n");
+			retorno.set(arrayFiles[i], file.split("\n").length);
 
-			})
-		console.log(names);
-		console.log(lineFiles);
-		});
+		};
 
 		rl.close();
+		
+		//retorna um map() com chave = nome do arquivo e valor = quantidade de linhas.
+		return retorno;
 
-	 });
-
+	});
 }
 
-contaLinhas();
+
