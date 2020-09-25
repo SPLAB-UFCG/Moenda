@@ -1,4 +1,4 @@
-let fs = require('fs');
+const fs = require('fs');
 const prompt = require('prompt-sync')();
 
 
@@ -52,4 +52,3 @@ function collectEighty(link){
 	return result;
 
 }
-
