@@ -43,7 +43,7 @@ function collectEighty(link){
 
 		for(let i = 0; i<lines.length; i++){
 			if (lines[i].trim().length > 80){
-				result.push([i]+ " : " + lines[i]);
+                         result.push(`${[i]}:${lines[i]}`);
 			}
 		}
 	}
