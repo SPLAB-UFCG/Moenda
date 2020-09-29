@@ -7,7 +7,9 @@ function lineCounter(){
 	
   	const result = {};
 
-  	const path = prompt('Enter the path to the directory to be scanned: ');
+	const path = prompt('Enter the path to the directory to be scanned: ');
+	  
+	const  extensionsArray = prompt('Enter connections to be ignored, separated by space. Ex: js md py:  ').split(' ');
 	
 	const arrayFiles = fs.readdirSync(path);
 
@@ -17,7 +19,10 @@ function lineCounter(){
 
 		if (fileTest.isFile()){
 			const file = fs.readFileSync(path + "/" + arrayFiles[i], "utf-8");
-			result[`${arrayFiles[i]}`] = file.split("\n").length - 1;
+
+			if(extensionsArray.indexOf(arrayFiles[i].split('.')[1]) == -1){
+				result[`${arrayFiles[i]}`] = file.split("\n").length - 1;
+			}
 		}
 	};
 
@@ -42,6 +47,13 @@ function hasLineAboveEightyCharacters(link){
 		}
 	}
 	return result;
-
 }
+
+
+
+
+
+
+
+console.log(lineCounter());
 
