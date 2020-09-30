@@ -49,11 +49,21 @@ function hasLineAboveEightyCharacters(link){
 	return result;
 }
 
+function firstSectionStartsWithH1(link){
+	const file = fs.readFileSync(link, "utf-8");
+
+	if(extensionsExtractor.extname(link) == ".md"){
+		for(let i = 0; i < file.length; i++){
+			if(file[i] == "#" && file[i+1] != "#"){
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+}
 
 
 
 
-
-
-console.log(lineCounter());
 
