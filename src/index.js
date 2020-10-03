@@ -76,7 +76,3 @@ function checkIfMarkdownHasGrowingSections(link){
 
 
 
-
-console.log(checkIfMarkdownHasGrowingSections("/home/felipe/Moenda/CODE_OF_CONDUCT.md"));
-
-
