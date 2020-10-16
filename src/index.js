@@ -1,4 +1,6 @@
 const fs = require('fs');
+const os = require('os');
+
 
 function testIfIsFile(link){
 	const fileTest = fs.statSync(link);
@@ -7,16 +9,24 @@ function testIfIsFile(link){
 }
 
 module.exports = {
-	directoryFiles: function(link, extensionsArray){
-		let result = {};
 
-		if(testIfIsFile(link) == false){
-			const arrayFiles = fs.readdirSync(link);
+	ignoresExtensions: function(path, extensionsArray){
+		if(extensionsArray.indexOf(path.split('.')[1]) == 0){
+			return true;
+		} 
+		return false;
+	},
+
+	directoryFiles: function(path, extensionsArray){
+		let result = [];
+
+		if(testIfIsFile(path) == false){
+			const arrayFiles = fs.readdirSync(path);
 
 			for(let i = 0; i < arrayFiles.length; i++){
-				if(testIfIsFile(`${link}/${arrayFiles[i]}`) === true){
-					if(extensionsArray.indexOf(arrayFiles[i].split('.')[1]) == -1){
-						result[i] = arrayFiles[i];
+				if(testIfIsFile(`${path}/${arrayFiles[i]}`) === true){
+					if(this.ignoresExtensions(arrayFiles[i], extensionsArray) === false){
+						result[result.length] = arrayFiles[i];
 					}
 				}
 			}
@@ -26,24 +36,22 @@ module.exports = {
 	},
 
 	lineCounter: function(link){
-		const result = {};
 		if(testIfIsFile(link) === true){
-			result[link] = fs.readFileSync(link, "utf-8").split("\n").length - 1;
+			return fs.readFileSync(link, "utf-8").split(os.EOL).length;
 		}
-		return result;	
 	},
 
 	hasLineAboveEightyCharacters: function(link){	
 		const fileTest = fs.statSync(link, "utf-8");
 
 		if (fileTest.isFile()){
-			let result = {};
+			let result = [];
 			const file = fs.readFileSync(link, "utf-8");
-			const lines = file.split("\n");
+			const lines = file.split(os.EOL);
 
 			for(let i = 0; i<lines.length; i++){
 				if (lines[i].length > 80){
-					result[i] = lines[i];
+					result[result.length] = i;
 				}
 			}
 			return result;
@@ -53,11 +61,12 @@ module.exports = {
 	firstSectionStartsWithH1: function(link){
 		if(testIfIsFile(link) === true && link.endsWith(".md")){
 			const file = fs.readFileSync(link, "utf-8");
+			const lines = file.split(os.EOL);
 
-			for(let i = 0; i < file.length; i++){
-				const boolean = file[i] == "#" && file[i+1] != "#";
+			for(let i = 0; i < lines.length; i++){
+				const boolean = lines[i][0] == "#" && lines[i][1] != "#";
 
-				return {"value": boolean};
+				return boolean;
 			
 		}}
 	},
@@ -65,9 +74,9 @@ module.exports = {
 	checkIfMarkdownHasGrowingSections: function(link){
 		if(testIfIsFile(link) === true && link.endsWith(".md")){
 				const file = fs.readFileSync(link, "utf-8");
-				const lines = file.split("\n");
+				const lines = file.split(os.EOL);
 				const sizes = [];
-				let result = {"value": true};
+				let result = true;
 
 				for(let i = 0; i < lines.length; i++){
 					if(lines[i].startsWith('#')){
@@ -83,15 +92,16 @@ module.exports = {
 
 				for(let i = 0; i < sizes.length - 1; i++){
 					if(sizes[i] !== sizes[i+1] && sizes[i] !== sizes[i+1] - 1 && sizes[i] !== sizes[i+1] + 1){
-						result.value = false;
+						result = false;
 					}
 				}
 				return result;
-			}
 		}
+	},
+
+	useImportFunction: function(path, functionality){
+		const file = require(path);
+		
+		file[functionality]();
 	}
-
-
-
-
-
+}
