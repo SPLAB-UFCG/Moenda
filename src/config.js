@@ -1,7 +1,7 @@
 
 const config = {
-  lineCounter: {limit:50},
-  hasLineAboveXCharacters: {limit:75},
+  lineCounter: {limit:60},
+  hasLineAboveXCharacters: {limit:30},
   
   
 }
