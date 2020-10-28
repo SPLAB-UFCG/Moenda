@@ -26,18 +26,21 @@ module.exports = {
 	},
 
 	lineCounter: function(link, config){
+		const rules = require(config);
 		let result = {line: "-", column: "-", status: "info", msg:"", data:0, toString: "", name: "lineCounter()"};;
 
 		if(util.testIfIsFile(link).status === true){
 			const lines = fs.readFileSync(link, "utf-8").split(os.EOL).length;
-			if(lines > config){
-				result.status = "error";
-				result.line = config + 1;
-				result.msg = `This file is expected to have a maximum of ${config} lines`;
-			}else{
-				result.msg = `The file has ${lines} lines`;
-			}
+			result.msg = `The file has ${lines} line(s)`;
 			result.data = lines;
+
+			if(rules.lineCounter?.limit !== undefined){
+				if(lines > rules.lineCounter.limit){
+				result.status = "error";
+				result.line = rules.lineCounter.limit + 1;
+				result.msg = `This file is expected to have a maximum of ${rules.lineCounter.limit} lines`;
+				}
+			} 
 		}
 
 		result.toString = util.toStringGenerate(result);
@@ -46,38 +49,39 @@ module.exports = {
 	},
 
 	hasLineAboveXCharacters: function(link, config){	
-		let result = {status: "", data: "", msg: "", line: "-", column:"-", toString:"", name:""};
-		
 		const fileTest = fs.statSync(link, "utf-8");
+		const rules = require(config);
 
 		if (fileTest.isFile()){
-			result = {status: false, data: "", msg: `No lines exceed ${config} characters.`, line: "-", column:"-", toString:"", name:""};
-			const file = fs.readFileSync(link, "utf-8");
-			const lines = file.split(os.EOL);;
-			for(let i = 0; i<lines.length; i++){
-				if (lines[i].length > config){
-					result.status = "error";
-					result.line = i + 1;
-					result.data = lines[i];
-					result.column = config + 1;
-					result.msg = `This line must not exceed ${config} characters.`;
-					result.name = "hasLineAboveXCharacters()";
-					result.toString = util.toStringGenerate(result);
+		let	result = {status: false, data: "", msg:"", line: "-", column:"-", toString:"", name:""};
 
-					return result;
-				}
-			}	
+			if(rules.hasLineAboveXCharacters?.limit !== undefined){
+				const file = fs.readFileSync(link, "utf-8");
+				const lines = file.split(os.EOL);
+				for(let i = 0; i<lines.length; i++){
+					if (lines[i].length > config){
+						result.status = "error";
+						result.line = i + 1;
+						result.data = lines[i];
+						result.column = config + 1;
+						result.msg = `This line must not exceed ${config} characters.`;
+						result.name = "hasLineAboveXCharacters()";
+						result.toString = util.toStringGenerate(result);
+
+						return result;
+					}
+				}	
+			}
+			result.toString = util.toStringGenerate(result);
+			return result;
 		}
-
-		result.toString = util.toStringGenerate(result);
-
-		return result;	
+	
 	},
 
 	firstSectionStartsWithH1: function(link){
 		let result = {status: "", line: "-", column: "-", msg: "", data:"", toString: "", name: ""};
 		if(util.testIfIsFile(link).status === true && link.endsWith(".md")){
-			result = {status: "error", line: "-", column: "-", msg: "The first section of the file does not start with H1", data:"", toString: ""};
+			result = {status: "error", line: "-", column: "-", msg: "The first section of the file does not start with H1", data:"", toString: "", name: "firstSectionStartsWithH1()"};
 			const file = fs.readFileSync(link, "utf-8");
 			const lines = file.split(os.EOL);
 			let size = [];
@@ -110,7 +114,7 @@ module.exports = {
 	},
 
 	checkIfMarkdownHasGrowingSections: function(link){
-		let result = {status: false, line:"-", column: "-", msg: "The file has increasing and decreasing sections", data: "", toString: "", name: ""};
+		let result = {status: false, line:"-", column: "-", msg: "The file has increasing and decreasing sections", data: "", toString: "", name: "checkIfMarkdownHasGrowingSections()"};
 		if(util.testIfIsFile(link).status === true && link.endsWith(".md")){
 			const file = fs.readFileSync(link, "utf-8");
 			const lines = file.split(os.EOL);
@@ -146,8 +150,6 @@ module.exports = {
 	},
 
 	exit: function(rules, path, extensionsArray){
-
-		const config = require(rules);
 		
 		if(util.testIfIsFile(path).status === true){
 			let errors = 0;
@@ -155,55 +157,67 @@ module.exports = {
 
 			let functions = [this.checkIfMarkdownHasGrowingSections(path), 
 				this.firstSectionStartsWithH1(path), 
-				this.hasLineAboveXCharacters(path, config.hasLineAboveXCharacters.limit),
-				this.lineCounter(path, config.lineCounter.limit),
+				this.hasLineAboveXCharacters(path, rules),
+				this.lineCounter(path, rules),
 			];
 		
-	
-		string = path + os.EOL;
-		
-		for(let i = 0; i < functions.length; i++){
-			if(functions[i].status === "error"){
-				string += functions[i].toString + os.EOL;
-				errors++
+			string = path + os.EOL;
+			
+			let returns = [];
+
+			for(let j = 0; j < functions.length; j++){
+				if(functions[j].status === "error"){
+					returns.push(functions[j].toString);
+					errors++;
+				}
+				if(functions[j].status === "info"){
+					returns.push(functions[j].toString);
+					infos++;
+				}
 			}
-			if(functions[i].status === "info"){
-				string += functions[i].toString + os.EOL;
-				infos++
+
+			returns.sort();
+
+			for(let j = 0; j < returns.length; j++){
+				string += returns[j] + os.EOL;
+
 			}
-		}
 
 		string += os.EOL + "* " + errors + ` problem(s) (${errors} errors)` + os.EOL;
 		string += "* " + infos + " info(s)" + os.EOL;
 
 		console.log(string);
 		
-		}else{
-
+		} else {
 			const array = this.directoryFiles(path, extensionsArray).data;
 			for(let i = 0; i < array.length; i++){
 				let errors = 0;
 				let infos = 0;
 				const functions = [this.checkIfMarkdownHasGrowingSections(`${path}/${array[i]}`), 
 					this.firstSectionStartsWithH1(`${path}/${array[i]}`), 
-					this.hasLineAboveXCharacters(`${path}/${array[i]}`, config.hasLineAboveXCharacters.limit),
-					this.lineCounter(`${path}/${array[i]}`, config.lineCounter.limit),
+					this.hasLineAboveXCharacters(`${path}/${array[i]}`, rules),
+					this.lineCounter(`${path}/${array[i]}`, rules),
 				];
 
-				string = `${path}${array[i]}`+ os.EOL;
-			
-				for(let j = 0; j < functions.length; j++){
-					
-					if(functions[j].status === "error"){
-						string += functions[j].toString + os.EOL;
-						errors++
-					}
-					
-					if(functions[j].status === "info"){
-						string += functions[j].toString + os.EOL;
-						infos++
-					}
+				let returns = [];
 
+				string = `${path}/${array[i]}`+ os.EOL;
+				
+				for(let j = 0; j < functions.length; j++){
+					if(functions[j].status === "error"){
+						returns.push(functions[j].toString);
+						errors++;
+					}
+					if(functions[j].status === "info"){
+						returns.push(functions[j].toString);
+						infos++;
+					}
+				}
+
+				returns.sort();
+
+				for(let j = 0; j < returns.length; j++){
+					string += returns[j] + os.EOL;
 				}
 
 			string += os.EOL + "* " + errors + ` problem(s) (${errors} errors)` + os.EOL;

@@ -12,8 +12,8 @@ module.exports = {
     return result;
   },
   
-  toStringGenerate: function(method, name){
-    const string = method.line +":" + method.column + "     " +method.status + "     " + method.msg + "     " + method.name;
+  toStringGenerate: function(method){
+    const string = method.line + ":" + method.column + "     " + method.status + "     " + method.msg + "     " + method.name;
   
     return string;
   },
@@ -21,12 +21,12 @@ module.exports = {
   ignoresExtensions: function(path, extensionsArray){
 		let result = {line: "-", column: "-", status:false, msg: "The informed path does not have any of the reported extensions.", data: ""};
 
-		if(extensionsArray.indexOf(String(path.split('.')[1]), 0) !== -1){
-			result.status = true;
-			result.msg = "The path passed corresponds to a file of type that needs to be ignored.";
-		} 
+    if(extensionsArray !== undefined){
+      if(extensionsArray.indexOf(String(path.split('.')[1]), 0) !== -1){
+        result.status = true;
+        result.msg = "The path passed corresponds to a file of type that needs to be ignored.";
+      } 
+    }
 		return result;
   },
-  
-  
 }

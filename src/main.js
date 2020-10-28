@@ -7,9 +7,4 @@ index.exit(process.argv[2], process.argv[3], process.argv[5]);
 
 }
 
-function exit(){
-  let exit = "";
-
- 
-}
 main();
