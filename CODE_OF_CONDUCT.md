@@ -69,3 +69,5 @@ determinadas por outros membros da liderança do projeto.
 
 Este Código de Conduta é adaptado do [Contributor Covenant](https://www.contributor-covenant.org),
 versão 1.4, disponível em https://www.contributor-covenant.org/pt-br/version/1/4/code-of-conduct.html
+
+
