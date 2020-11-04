@@ -2,7 +2,7 @@
 
 ## What is Moenda:
 
-O Moenda é uma engine construída com Nodejs que analisa um conjunto de arquivos a partir de regras editáveis e definidas pelo usuário e gera um relatório desses arquivos.
+Moenda is an engine built with Nodejs that analyzes a set of files from editable and user-defined rules and generates a report of these files.
 
 ## How to download:
 
