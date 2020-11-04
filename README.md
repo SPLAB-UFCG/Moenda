@@ -17,6 +17,7 @@ $ npm install
 
 config.js: 
 
+```js
 const config = {
   lineCounter: {limit:60},
   hasLineAboveXCharacters: {limit:30},
@@ -25,8 +26,9 @@ const config = {
 }
 
 module.exports = config;
-
 ```
+
+```shell
 $ moenda.js /home/user/md-rules.js /home/user/sut --exclude html,java  --config configOne.js
 
 /home/user/sut/file.js
@@ -52,12 +54,12 @@ $ moenda.js /home/user/md-rules.js /home/user/sut --exclude html,java  --config 
 
 ## Functionalities:
 
-  Function: lineCounter,
-  Function: hasLineAboveXCharacters,
-  Function: firstSectionStartsWithHx,
-  Function: hasNeighboringSections,
-  Function: inconsistencyOfSpaces,
-  Function: consecutiveBlankLines
+  Function: lineCounter,  
+  Function: hasLineAboveXCharacters,  
+  Function: firstSectionStartsWithHx,  
+  Function: hasNeighboringSections,  
+  Function: inconsistencyOfSpaces,  
+  Function: consecutiveBlankLines  
 
 
 
