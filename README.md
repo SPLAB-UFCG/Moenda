@@ -1,10 +1,10 @@
-#Moenda
+# Moenda
 
-##What is Moenda:
+## What is Moenda:
 
 O Moenda é uma engine construída com Nodejs que analisa um conjunto de arquivos a partir de regras editáveis e definidas pelo usuário e gera um relatório desses arquivos.
 
-##How to download:
+## How to download:
 
 ```
 $ git clone https://github.com/SPLAB-UFCG/Moenda.git
@@ -12,7 +12,7 @@ $ git clone https://github.com/SPLAB-UFCG/Moenda.git
 $ npm install
 ```
 
-##How to execute:
+## How to execute:
 
 
 config.js: 
@@ -50,7 +50,7 @@ $ moenda.js /home/user/md-rules.js /home/user/sut --exclude html,java  --config 
 
 ```
 
-##Functionalities:
+## Functionalities:
 
   Function: lineCounter,
   Function: hasLineAboveXCharacters,
