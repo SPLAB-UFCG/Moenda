@@ -1,33 +1,66 @@
-# oss-template
+#Moenda
 
-> Pequena descrição do que seu projeto faz.
+##What is Moenda:
 
-<!-- Descreva aqui no início os objetivos do seu projeto. -->
+O Moenda é uma engine construída com Nodejs que analisa um conjunto de arquivos a partir de regras editáveis e definidas pelo usuário e gera um relatório desses arquivos.
 
-Um template para seu projeto Open Source contendo os arquivos essenciais. Mude os tópicos desse `README.md` para conter as informações necessárias do seu projeto. Nesse template irá conter:
-
-- `README.md`: Uma estrutura básica para descrever o que é seu projeto e como utilizá-lo.
-- `LICENSE`: A licença está como **MIT**, edite para outra caso necessário. Use o [choosealicense](https://choosealicense.com/) para ajudar.
-- `CONTRIBUTING.md`: Arquivo opcional onde pode conter mais detalhes de como contribuir para seu projeto.
-- `CODE_OF_CONDUCT.md`: Código de conduta baseado no [Contributor Covenant](https://www.contributor-covenant.org). Adapte se necessário.
-- `github/ISSUE_TEMPLATE`: Template para issues.
-- `github/PULL_REQUEST_TEMPLATE`: Template para pull requests.
-
-## Como Usar
-
-<!-- Descreva como um usuário pode utilizar seu projeto. -->
-
-## Desenvolvimento
-
-Descreva quais tecnologias necessárias para sua aplicação funcionar e adicione referências.
+##How to download:
 
 ```
-caso sua aplicação exija um comando para rodar, coloque aqui.
+$ git clone https://github.com/SPLAB-UFCG/Moenda.git
+
+$ npm install
 ```
 
-## Como Contribuir
+##How to execute:
 
-<!-- Descreva informações necessárias para contribuir. Se necessário referencie o CONTRIBUTING.md -->
+
+config.js: 
+
+const config = {
+  lineCounter: {limit:60},
+  hasLineAboveXCharacters: {limit:30},
+  firstSectionStartsWithHx: {limit: 3},
+  consecutiveBlankLines: {limit: 1}
+}
+
+module.exports = config;
+
+```
+$ moenda.js /home/user/md-rules.js /home/user/sut --exclude html,java  --config configOne.js
+
+/home/user/sut/file.js
+12:76  error  "This line must not exceed 75 characters."     hasLineAboveXCharacters()
+51:-  error    "This file is expected to have a maximum of 50 lines"   lineCounter()
+62:- error     "This file is expected to have a maximum of 1 consecutive blank lines"     consecutiveBlankLines()
+
+* 4 problem(s) (2 errors)
+* 0 info(s)
+
+
+/home/user/sut/markdown.md
+1:4     error     The first section of the file does not start with H1     firstSectionStartsWithHx()
+1:4     error     The file does not have increasing and decreasing sections     hasNeighboringSections()
+15:76   error     "This line must not exceed 75 characters."     hasLineAboveXCharacters()
+51:-  error    "This file is expected to have a maximum of 50 lines"   lineCounter()
+
+* 4 problem(s) (4 errors)
+* 0 info(s)
+  
+
+```
+
+##Functionalities:
+
+  Function: lineCounter,
+  Function: hasLineAboveXCharacters,
+  Function: firstSectionStartsWithHx,
+  Function: hasNeighboringSections,
+  Function: inconsistencyOfSpaces,
+  Function: consecutiveBlankLines
+
+
+
 
 ## Licença
 
