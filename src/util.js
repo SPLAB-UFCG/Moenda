@@ -9,6 +9,7 @@ module.exports = {
     if(result.status === true){
       result.msg = "the path passed corresponds to a file";
     }
+
     return result;
   },
   
@@ -29,4 +30,30 @@ module.exports = {
     }
 		return result;
   },
+
+  directoryFiles: function(path, extensionsArray){
+		let result = {status:"info", line: "-", column: "-", data:[], msg: "This directory has the following files:", toString: ""};
+		if(this.testIfIsFile(path).status === false){
+      const arrayFiles = fs.readdirSync(path);
+      
+
+			for(let i = 0; i < arrayFiles.length; i++){
+				if(this.testIfIsFile(`${path}/${arrayFiles[i]}`).status === true){
+					if(this.ignoresExtensions(arrayFiles[i], extensionsArray).status === false){
+						result.data [result.data.length] = (arrayFiles[i]);
+					}
+				}
+			}
+		}else{
+			result.msg = "Unable to read this directory";
+		}
+
+		result.toString = this.toStringGenerate(result);
+
+		return result;
+  },
+  
+  sortNumbers: function(path){
+    
+  }
 }
