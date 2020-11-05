@@ -30,7 +30,7 @@ module.exports = config;
 ```
 
 ```shell
-$ moenda.js /home/user/md-rules.js /home/user/sut --exclude html,java  --config configOne.js
+$ moenda.js --rules /home/user/md-rules.js --path /home/user/sut --exclude html,java  --config configOne.js
 
 /home/user/sut/file.js
 12:76  error  "This line must not exceed 75 characters."     hasLineAboveXCharacters()
