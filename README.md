@@ -33,7 +33,7 @@ module.exports = config;
   * --rules informs the path to the rules file
   * --path informs the path to the file to be analyzed
   * --config informs the cmainho to the settings file
-  * --exclude informs which extensions to ignore.
+  * --exclude informs which extensions to ignore.  
     ** The --exclude parameter is optional.
 
 ```shell
