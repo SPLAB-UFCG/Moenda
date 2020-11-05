@@ -14,6 +14,7 @@ $ npm install
 
 ## How to execute:
 
+#### The Moenda requires a file of rules that can be passed or not, in the following model:
 
 config.js: 
 
