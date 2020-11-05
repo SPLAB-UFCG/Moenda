@@ -34,7 +34,7 @@ module.exports = config;
   * --path informs the path to the file to be analyzed
   * --config informs the cmainho to the settings file
   * --exclude informs which extensions to ignore.  
-  * The --exclude parameter is optional.
+    * The --exclude parameter is optional.
 
 ```shell
 $ moenda.js --rules /home/user/md-rules.js --path /home/user/sut --exclude html,java  --config configOne.js
