@@ -94,9 +94,8 @@ module.exports = {
 		return result;
 	},
 
-	
 	hasNeighboringSections: function(link, config){
-		let result = {status: false, line:"-", column: "-", msg: "The file has increasing and decreasing sections", data: "", toString: "", name: "hasNeighboringSections()"};
+		let result = {status: false, line:"-", column: "-", msg: "", data: "", toString: "", name: ""};
 		if(util.testIfIsFile(link).status === true && link.endsWith(".md")){
 			const file = fs.readFileSync(link, "utf-8");
 			const lines = file.split(os.EOL);
@@ -121,7 +120,7 @@ module.exports = {
 					result.msg = "The file does not have increasing and decreasing sections";
 					result.column = sizes[i][1];
 					result.data = lines[sizes[i][0]];
-					result.name = "checkIfMarkdownHasGrowingSections()";
+					result.name = "hasNeighboringSections()";
 				}
 			}
 		}
@@ -175,13 +174,12 @@ module.exports = {
 		let result = {line: "-", column: "-", status: "", msg:"", data:0, toString: "", name: "consecutiveBlankLines()"};
 		
 		if(util.testIfIsFile(link).status === true){
-			
 			if(rules.consecutiveBlankLines?.limit !== undefined){
 				const lines = fs.readFileSync(link, "utf-8").split(os.EOL);
 				let cont = 0;
 
 				for (let i = 0; i < lines.length; i++){
-					if(lines[i] === ""){
+					if(lines[i].trim() === ""){
 						cont++;
 
 						if(cont > rules.consecutiveBlankLines.limit){
@@ -196,7 +194,7 @@ module.exports = {
 				}
 			} 
 		}
-		
+
 		result.toString = util.toStringGenerate(result);
 
 		return result;

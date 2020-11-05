@@ -36,7 +36,6 @@ module.exports = {
 		if(this.testIfIsFile(path).status === false){
       const arrayFiles = fs.readdirSync(path);
       
-
 			for(let i = 0; i < arrayFiles.length; i++){
 				if(this.testIfIsFile(`${path}/${arrayFiles[i]}`).status === true){
 					if(this.ignoresExtensions(arrayFiles[i], extensionsArray).status === false){
@@ -54,6 +53,6 @@ module.exports = {
   },
   
   sortNumbers: function(path){
-    
+
   }
 }
