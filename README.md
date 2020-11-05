@@ -29,6 +29,12 @@ const config = {
 module.exports = config;
 ```
 
+#### The Moenda must be invoked followed by 4 parameters:
+  * --rules informs the path to the rules file
+  * --path informs the path to the file to be analyzed
+  * --config informs the cmainho to the settings file
+  * --exclude informs which extensions to ignore.
+
 ```shell
 $ moenda.js --rules /home/user/md-rules.js --path /home/user/sut --exclude html,java  --config configOne.js
 
