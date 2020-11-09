@@ -27,21 +27,44 @@ module.exports = {
 		return result;
 	},
 
+	hasLessThanXLines: function(link, config){
+		const rules = require(config);
+		let result = {line: "-", column: "-", status: "", msg:"", data:0, toString: "", name: "hasLessThanXLines()"};;
+
+		if(util.testIfIsFile(link).status === true){
+			const lines = fs.readFileSync(link, "utf-8").split(os.EOL).length;
+			result.msg = `The file has ${lines} line(s)`;
+			result.data = lines;
+
+			if(rules.hasLessThanXLines?.limit !== undefined){
+				if(lines < rules.hasLessThanXLines.limit){
+				result.status = "error";
+				result.line = lines;
+				result.msg = `This file is expected to have a minimum of ${rules.hasLessThanXLines.limit} lines`;
+				}
+			} 
+		}
+		
+		result.toString = util.toStringGenerate(result);
+
+		return result;
+	},
+
 	hasLineAboveXCharacters: function(link, config){	
 		const fileTest = fs.statSync(link, "utf-8");
 		const rules = require(config);
 		let	result = {status: false, data: "", msg:"", line: "-", column:"-", toString:"", name:""};
+		
 		if (fileTest.isFile()){
-
 			if(rules.hasLineAboveXCharacters?.limit !== undefined){
 				const file = fs.readFileSync(link, "utf-8");
 				const lines = file.split(os.EOL);
 				for(let i = 0; i < lines.length; i++){
-					if (lines[i].length > config){
+					if (lines[i].length > rules.hasLineAboveXCharacters.limit){
 						result.status = "error";
 						result.line = i + 1;
 						result.data = lines[i];
-						result.column = config + 1;
+						result.column = lines[i].length+ 1;
 						result.msg = `This line must not exceed ${config} characters.`;
 						result.name = "hasLineAboveXCharacters()";
 						result.toString = util.toStringGenerate(result);
@@ -58,6 +81,7 @@ module.exports = {
 
 	firstSectionStartsWithHx: function(link, config){
 		let result = {status: "", line: "-", column: "-", msg: "", data:"", toString: "", name: ""};
+
 		if(util.testIfIsFile(link).status === true && link.endsWith(".md")){
 			const rules = require(config);
 			const file = fs.readFileSync(link, "utf-8");
@@ -69,6 +93,7 @@ module.exports = {
 				for(let i = 0; i < lines.length; i++){
 					if(lines[i].startsWith('#')){
 						let aux = "";
+
 						for(let j = 0; j < lines[i].length; j++){
 							if(lines[i][j] === "#"){
 								aux += "#";
@@ -96,6 +121,7 @@ module.exports = {
 
 	hasNeighboringSections: function(link, config){
 		let result = {status: false, line:"-", column: "-", msg: "", data: "", toString: "", name: ""};
+		
 		if(util.testIfIsFile(link).status === true && link.endsWith(".md")){
 			const file = fs.readFileSync(link, "utf-8");
 			const lines = file.split(os.EOL);

@@ -1,5 +1,33 @@
 {
   "dependencies": {
-    "commander": "^6.2.0"
-  }
+    "commander": "^6.2.0",
+    "moenda": "^1.0.4"
+  },
+  "name": "moenda",
+  "description": "Moenda is an engine built with Nodejs that analyzes a set of files from editable and user-defined rules and generates a report of these files.",
+  "version": "1.0.4",
+  "readmeFilename": "README.md",
+  "main": "./src/moenda.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm install -g moenda"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SPLAB-UFCG/Moenda.git"
+  },
+  "keywords": [
+    "linter",
+    "analyzer",
+    "metrics"
+  ],
+  "author": {
+    "name": "Felipe de Souza Siqueira",
+    "email": "felipe.siqueira@ccc.ufcg.edu.br"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SPLAB-UFCG/Moenda/issues"
+  },
+  "homepage": "https://github.com/SPLAB-UFCG/Moenda#readme"
 }
