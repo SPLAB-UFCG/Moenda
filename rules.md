@@ -1,10 +1,16 @@
 # Defining rules:
 
 * Every function must receive as parameters the path to the analyzed file and the path to the settings file.
+  ```
+    example: function(path, config){
+      console.log("example");
+    }
+
+  ```
 
 * Each function must return an object with the following properties:
   ```
-  		let object = {status: boolean, line:"-", column: "-", msg: "Example", data: "", toString: "", name: "name of function()"};
+  let object = {status: boolean, line:"-", column: "-", msg: "Example", data: "", toString: "", name: "name of function()"};
 
   ```
 * All the functions in the rules file must be exported, example:
@@ -32,6 +38,11 @@
   ```
 
 * The --config argument is given the path to the settings file.
+  ```
+    --config /home/user/configFile.js
+    
+    --config /home/configFileTwo.js
+  ```
 
 * The --exclude argument receives extensions that should be ignored in the analysis, example:
 
