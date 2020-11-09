@@ -1,8 +1,9 @@
 const fs = require('fs');
+const os = require('os');
 
 module.exports = {
   testIfIsFile: function(path){
-    let result = {status: false, msg: "the path passed does not correspond to a file.", line: "-", column: "-"};
+    let result = {status: false};
     const fileTest = fs.statSync(path);
     result.status = fileTest.isFile();
   
@@ -20,39 +21,92 @@ module.exports = {
   },
 
   ignoresExtensions: function(path, extensionsArray){
-		let result = {line: "-", column: "-", status:false, msg: "The informed path does not have any of the reported extensions.", data: ""};
-
+		let result = {status:false};
+    
     if(extensionsArray !== undefined){
-      if(extensionsArray.indexOf(String(path.split('.')[1]), 0) !== -1){
-        result.status = true;
-        result.msg = "The path passed corresponds to a file of type that needs to be ignored.";
-      } 
+      const list = extensionsArray.split(",");
+      for (let i = 0; i < list.length; i++){
+        if (String(path.split('.')[1]) === list[i]){
+          result.status = true;
+          break;
+        }
+      }
     }
+
 		return result;
   },
 
   directoryFiles: function(path, extensionsArray){
-		let result = {status:"info", line: "-", column: "-", data:[], msg: "This directory has the following files:", toString: ""};
-		if(this.testIfIsFile(path).status === false){
-      const arrayFiles = fs.readdirSync(path);
-      
-			for(let i = 0; i < arrayFiles.length; i++){
-				if(this.testIfIsFile(`${path}/${arrayFiles[i]}`).status === true){
-					if(this.ignoresExtensions(arrayFiles[i], extensionsArray).status === false){
-						result.data [result.data.length] = (arrayFiles[i]);
-					}
-				}
-			}
-		}else{
-			result.msg = "Unable to read this directory";
-		}
+		let result = {status:"info", data:[]};
 
-		result.toString = this.toStringGenerate(result);
+    const arrayFiles = fs.readdirSync(path);
+      
+    for(let i = 0; i < arrayFiles.length; i++){
+      if(this.testIfIsFile(`${path}/${arrayFiles[i]}`).status === true){
+        if(this.ignoresExtensions(arrayFiles[i], extensionsArray).status === false){
+          result.data [result.data.length] = (arrayFiles[i]);
+        }
+      }
+    }
 
 		return result;
   },
-  
-  sortNumbers: function(path){
 
+  exitAid: function(program, file){
+    let errors = 0;
+    let infos = 0;
+    const functions = Object.values(require(`${program.rules}`));
+    let returns = [];
+    let string = "";
+
+    if (this.testIfIsFile(program.path).status){
+      string += program.path + os.EOL;
+
+      for(let j = 0; j < functions.length; j++){
+        if(functions[j](program.path, program.config).status === "error"){
+          returns.push(functions[j](program.path, program.config));
+          errors++;
+        }
+        if(functions[j](program.path, program.config).status === "info"){
+          returns.push(functions[j](program.path, program.config));
+          infos++;
+        }
+      }
+    } else {
+      string += `${program.path}/${file}`+ os.EOL;
+
+      for(let j = 0; j < functions.length; j++){
+        if(functions[j](`${program.path}/${file}`, program.config).status === "error"){
+          returns.push(functions[j](`${program.path}/${file}`, program.config));
+          errors++;
+        }
+        if(functions[j](`${program.path}/${file}`, program.config).status === "info"){
+          returns.push(functions[j](`${program.path}/${file}`, program.config));
+          infos++;
+        }
+      }
+    }
+
+    returns.sort(function (a, b) {
+      if (a === "-" || b === "-"){
+        return 0;
+      }
+      if (a.line > b.line) {
+        return 1;
+      }
+      if (a.line < b.line) {
+        return -1;
+      }
+      return 0;
+    });
+
+    for(let j = 0; j < returns.length; j++){
+      string += returns[j].toString + os.EOL;
+    }
+
+  string += os.EOL + "* " + errors + ` problem(s) (${errors} errors)` + os.EOL;
+  string += "* " + infos + " info(s)" + os.EOL;
+
+  console.log(string);
   }
 }
