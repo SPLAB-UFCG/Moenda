@@ -68,18 +68,19 @@ $ moenda.js --rules /home/user/md-rules.js --path /home/user/sut --exclude html,
 
 ```
 
-## Functionalities:
+## Built-in Rules:
 
-  Function: lineCounter,  
-  Function: hasLineAboveXCharacters,  
-  Function: firstSectionStartsWithHx,  
-  Function: hasNeighboringSections,  
-  Function: inconsistencyOfSpaces,  
-  Function: consecutiveBlankLines  
+  1. [lineCounter](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L6)  
+  2. [hasLessThanXLines](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L37)  
+  3. [hasLineAboveXCharacters](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L68)    
+  4. [firstSectionStartsWithHx](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L103)    
+  5. [hasNeighboringSections](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L159)  
+  6. [inconsistencyOfSpaces](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L209)  
+  7. [consecutiveBlankLines](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L260)  
 
 
 
 
 ## Licença
 
-MIT © [SeuProjeto]()
+MIT © Moenda
