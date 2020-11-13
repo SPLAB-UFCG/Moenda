@@ -19,12 +19,13 @@ Basic Configuration:
 ```
    
 #### Rules
-
+You can specify another file from which to load rules files using `--rules` option. This allows you to dynamically load new rules at run time. This is useful when you have custom rules that aren't suitable for being bundled with Moenda. Check it out our rules as an example.
 
 #### Path
-
+You can specify the path to the file(s) to be analyzed using `--path` option.
 
 #### Exclude 
+You can specify extensions of file to be ignored using `--exclude`. So, Moenda will not looks to those files when running the rules.
 
 
 #### Configuration
