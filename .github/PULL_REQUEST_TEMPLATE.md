@@ -11,16 +11,16 @@ Happy contributing!
 
 ## Motivation
 
-<!--(Write your motivation here.)-->
+(Write your motivation here.)
 
 ### Have you read the [Contributing Guidelines on pull requests](https://github.com/SPLAB-UFCG/Moenda/blob/master/CONTRIBUTING.md#pull-requests)?
 
-<!--(Write your answer here.)-->
+(Write your answer here.)
 
 ## Test Plan
 
-<!--(Write your test plan here. If you changed any code, please provide us with clear instructions on how you verified your changes work. Bonus points for screenshots and videos!)-->
+(Write your test plan here. If you changed any code, please provide us with clear instructions on how you verified your changes work. Bonus points for screenshots and videos!)
 
 ## Related PRs or/and Issues
 
-<!--(If this PR adds or changes functionality, please take some time to update the docs at https://github.com/SPLAB-UFCG/Moenda, and link to your PR here.)-->
+(If this PR adds or changes functionality, please take some time to update the docs at https://github.com/SPLAB-UFCG/Moenda, and link to your PR here.)
