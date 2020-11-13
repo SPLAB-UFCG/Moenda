@@ -1,20 +1,26 @@
-#### Issue
+<!--
+Thank you for sending the PR! We appreciate you spending the time to work on these changes.
 
-<!-- Marque aqui a issue ao qual essa pull request se refere -->
+Help us understand your motivation by explaining why you decided to make this change.
 
-#<numero_da_issue>
+You can learn more about contributing to Moenda here: https://github.com/SPLAB-UFCG/Moenda/blob/master/CONTRIBUTING.md
 
-#### Qual o objetivo dessa Pull Request?
+Happy contributing!
 
-<!--- Descreva suas mudanças em detalhes -->
+-->
 
-#### Que problema está resolvendo?
+## Motivation
 
-<!-- Marque o número da issue que está resolvendo #<numero_da_issue> -->
-<!--- Se não tiver issue, descreva a motivação e contexto dessa mudança -->
+<!--(Write your motivation here.)-->
 
-#### Como pode ser manualmente testado?
+### Have you read the [Contributing Guidelines on pull requests](https://github.com/SPLAB-UFCG/Moenda/blob/master/CONTRIBUTING.md#pull-requests)?
 
-#### Capturas de tela
+<!--(Write your answer here.)-->
 
-<!-- Se aplicável, se não apague essa seção -->
+## Test Plan
+
+<!--(Write your test plan here. If you changed any code, please provide us with clear instructions on how you verified your changes work. Bonus points for screenshots and videos!)-->
+
+## Related PRs or/and Issues
+
+<!--(If this PR adds or changes functionality, please take some time to update the docs at https://github.com/SPLAB-UFCG/Moenda, and link to your PR here.)-->
