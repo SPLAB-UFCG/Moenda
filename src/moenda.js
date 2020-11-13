@@ -1,6 +1,6 @@
-const util = require("./util");
+const util = require('./util');
 const os = require('os');
-const { Command } = require('commander');
+const {Command} = require('commander');
 const program = new Command();
 program.version('0.0.1');
 
@@ -12,19 +12,19 @@ program
 
 program.parse(process.argv);
 
-function main(){
-  if (util.testIfIsFile(program.path).status === true){
+function main() {
+  if (util.testIfIsFile(program.path).status === true) {
     util.exitAid(program);
   } else {
-    let parameter = "";
+    let parameter = '';
 
-    if (program.exclude){
+    if (program.exclude) {
       parameter += program.exclude;
     }
 
     const array = util.directoryFiles(program.path, parameter).data;
-    
-    for(let i = 0; i < array.length; i++){
+
+    for (let i = 0; i < array.length; i++) {
       util.exitAid(program, array[i]);
     }
   }

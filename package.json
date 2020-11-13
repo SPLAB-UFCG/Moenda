@@ -8,9 +8,16 @@
   "version": "1.0.4",
   "readmeFilename": "README.md",
   "main": "./src/moenda.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^7.13.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "prettier": "2.1.2"
+  },
   "scripts": {
-    "test": "npm install -g moenda"
+    "test": "npm install -g moenda",
+    "lint": "eslint --cache \"src/**/*.js\"",
+    "prettier": "prettier --config .prettierrc --write \"src/**/*.js\""
   },
   "repository": {
     "type": "git",
