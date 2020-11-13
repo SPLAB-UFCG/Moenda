@@ -9,13 +9,14 @@ Moenda is an engine built with Nodejs that analyzes a set of files from editable
 ```
 $ npm install moenda
 
-$ ./node_modules/moenda.js --rules /home/user/md-rules.js --path /home/user/myDir --exclude html,java  --config config.js
+$ ./node_modules/moenda.js --rules <rules-file.js> --path <files-dir/> --exclude <files-extensions> --config <config-file.js>
+ 
+Basic Configuration:
+ --rules               This option allows you to specify another file from which to load rules files rather then default. 
+ --path                This option allows you to specify the path to the file(s) to be analyzed.
+ --config              This option allows you to specify an additional configuration file for Moenda.
+ --exclude             This option allows you to specify which file extensions Moenda must ignore.(optional)
 ```
-  * --rules This option allows you to specify another file from which to load rules files rather then default. 
-  * --path This option allows you to specify the path to the file(s) to be analyzed
-  * --config This option allows you to specify an additional configuration file for Moenda
-  * --exclude This option allows you to specify which file extensions Moenda must ignore
-    * The --exclude parameter is optional.
    
 #### Rules
 
