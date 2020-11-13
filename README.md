@@ -42,10 +42,8 @@ const config = {
 
 module.exports = config;
 ```
-config.js
-
-
-
+#### Output
+After run the command you'll see the report in your terminal.
 ```shell
 $ moenda.js --rules /home/user/md-rules.js --path /home/user/sut --exclude html,java  --config configOne.js
 
