@@ -28,8 +28,8 @@ Basic Configuration:
 
 
 #### Configuration
+Use a JavaScript file to specify configuration information for your files. This should be in the form of an `<configName>.js` file. Moenda will look for the file that you specified on the command line using `--config` option.
 
-config.js: 
 
 ```js
 const config = {
@@ -41,7 +41,7 @@ const config = {
 
 module.exports = config;
 ```
-Use a JavaScript file to specify configuration information for your files. This should be in the form of an `<configName>.js` file. Moenda will look for the file that you specified on the command line using `--config` option.
+config.js
 
 
 
