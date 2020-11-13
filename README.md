@@ -4,17 +4,29 @@
 
 Moenda is an engine built with Nodejs that analyzes a set of files from editable and user-defined rules and generates a report of these files.
 
-## How to download:
+## Installation and Usage:
 
 ```
-$ git clone https://github.com/SPLAB-UFCG/Moenda.git
+$ npm install moenda
 
-$ npm install
+$ ./node_modules/moenda.js --rules /home/user/md-rules.js --path /home/user/myDir --exclude html,java  --config config.js
 ```
+  * --rules This option allows you to specify another file from which to load rules files rather then default. 
+  * --path This option allows you to specify the path to the file(s) to be analyzed
+  * --config This option allows you to specify an additional configuration file for Moenda
+  * --exclude This option allows you to specify which file extensions Moenda must ignore
+    * The --exclude parameter is optional.
+   
+#### Rules
 
-## How to execute:
 
-#### The Moenda requires a file of rules that can be passed or not, in the following model:
+#### Path
+
+
+#### Exclude 
+
+
+#### Configuration
 
 config.js: 
 
@@ -28,13 +40,9 @@ const config = {
 
 module.exports = config;
 ```
+Use a JavaScript file to specify configuration information for your files. This should be in the form of an `<configName>.js` file. Moenda will look for the file that you specified on the command line using `--config` option.
 
-#### The Moenda must be invoked followed by 4 parameters:
-  * --rules informs the path to the rules file
-  * --path informs the path to the file to be analyzed
-  * --config informs the cmainho to the settings file
-  * --exclude informs which extensions to ignore.  
-    * The --exclude parameter is optional.
+
 
 ```shell
 $ moenda.js --rules /home/user/md-rules.js --path /home/user/sut --exclude html,java  --config configOne.js
