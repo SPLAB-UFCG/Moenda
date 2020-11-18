@@ -70,17 +70,19 @@ module.exports = {
     const functions = Object.values(require(`${program.rules}`));
     let returns = [];
     let string = '';
+    const config = require(program.config);
+
 
     if (this.testIfIsFile(program.path).status) {
       string += program.path + os.EOL;
 
       for (let j = 0; j < functions.length; j++) {
-        if (functions[j](program.path, program.config).status === 'error') {
-          returns.push(functions[j](program.path, program.config));
+        if (functions[j](program.path, config).status === 'error') {
+          returns.push(functions[j](program.path, config));
           errors++;
         }
-        if (functions[j](program.path, program.config).status === 'info') {
-          returns.push(functions[j](program.path, program.config));
+        if (functions[j](program.path, config).status === 'info') {
+          returns.push(functions[j](program.path, config));
           infos++;
         }
       }
@@ -89,17 +91,17 @@ module.exports = {
 
       for (let j = 0; j < functions.length; j++) {
         if (
-          functions[j](`${program.path}/${file}`, program.config).status ===
+          functions[j](`${program.path}/${file}`, config).status ===
           'error'
         ) {
-          returns.push(functions[j](`${program.path}/${file}`, program.config));
+          returns.push(functions[j](`${program.path}/${file}`, config));
           errors++;
         }
         if (
-          functions[j](`${program.path}/${file}`, program.config).status ===
+          functions[j](`${program.path}/${file}`, config).status ===
           'info'
         ) {
-          returns.push(functions[j](`${program.path}/${file}`, program.config));
+          returns.push(functions[j](`${program.path}/${file}`, config));
           infos++;
         }
       }
@@ -128,4 +130,5 @@ module.exports = {
 
     console.log(string);
   },
+
 };

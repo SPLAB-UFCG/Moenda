@@ -3,8 +3,7 @@ const os = require('os');
 const util = require('./util');
 
 module.exports = {
-  lineCounter: function (link, config) {
-    const rules = require(config);
+  lineCounter: function (link, rules) {
     let result = {
       line: '-',
       column: '-',
@@ -34,8 +33,7 @@ module.exports = {
     return result;
   },
 
-  hasLessThanXLines: function (link, config) {
-    const rules = require(config);
+  LessThanXLines: function (link, rules) {
     let result = {
       line: '-',
       column: '-',
@@ -43,7 +41,7 @@ module.exports = {
       msg: '',
       data: 0,
       toString: '',
-      name: 'hasLessThanXLines()',
+      name: 'LessThanXLines()',
     };
 
     if (util.testIfIsFile(link).status === true) {
@@ -51,11 +49,11 @@ module.exports = {
       result.msg = `The file has ${lines} line(s)`;
       result.data = lines;
 
-      if (rules.hasLessThanXLines?.limit !== undefined) {
-        if (lines < rules.hasLessThanXLines.limit) {
+      if (rules.LessThanXLines?.limit !== undefined) {
+        if (lines < rules.LessThanXLines.limit) {
           result.status = 'error';
           result.line = lines;
-          result.msg = `This file is expected to have a minimum of ${rules.hasLessThanXLines.limit} lines`;
+          result.msg = `This file is expected to have a minimum of ${rules.LessThanXLines.limit} lines`;
         }
       }
     }
@@ -65,9 +63,8 @@ module.exports = {
     return result;
   },
 
-  hasLineAboveXCharacters: function (link, config) {
+  LineAboveXCharacters: function (link, rules) {
     const fileTest = fs.statSync(link, 'utf-8');
-    const rules = require(config);
     let result = {
       status: false,
       data: '',
@@ -79,17 +76,17 @@ module.exports = {
     };
 
     if (fileTest.isFile()) {
-      if (rules.hasLineAboveXCharacters?.limit !== undefined) {
+      if (rules.LineAboveXCharacters?.limit !== undefined) {
         const file = fs.readFileSync(link, 'utf-8');
         const lines = file.split(os.EOL);
         for (let i = 0; i < lines.length; i++) {
-          if (lines[i].length > rules.hasLineAboveXCharacters.limit) {
+          if (lines[i].length > rules.LineAboveXCharacters.limit) {
             result.status = 'error';
             result.line = i + 1;
             result.data = lines[i];
-            result.column = lines[i].length + 1;
-            result.msg = `This line must not exceed ${config} characters.`;
-            result.name = 'hasLineAboveXCharacters()';
+            result.column = rules.LineAboveXCharacters.limit + 1;
+            result.msg = `This line must not exceed ${rules.LineAboveXCharacters.limit} characters.`;
+            result.name = 'LineAboveXCharacters()';
             result.toString = util.toStringGenerate(result);
             return result;
           }
@@ -100,7 +97,7 @@ module.exports = {
     return result;
   },
 
-  firstSectionStartsWithHx: function (link, config) {
+  firstSectionStartsWithHx: function (link, rules) {
     let result = {
       status: '',
       line: '-',
@@ -112,7 +109,6 @@ module.exports = {
     };
 
     if (util.testIfIsFile(link).status === true && link.endsWith('.md')) {
-      const rules = require(config);
       const file = fs.readFileSync(link, 'utf-8');
       const lines = file.split(os.EOL);
       let size = [];
@@ -156,7 +152,7 @@ module.exports = {
     return result;
   },
 
-  hasNeighboringSections: function (link, config) {
+  NeighboringSections: function (link, config) {
     let result = {
       status: false,
       line: '-',
@@ -196,7 +192,7 @@ module.exports = {
             'The file does not have increasing and decreasing sections';
           result.column = sizes[i][1];
           result.data = lines[sizes[i][0]];
-          result.name = 'hasNeighboringSections()';
+          result.name = 'NeighboringSections()';
         }
       }
     }
@@ -257,8 +253,7 @@ module.exports = {
     return result;
   },
 
-  consecutiveBlankLines: function (link, config) {
-    const rules = require(config);
+  consecutiveBlankLines: function (link, rules) {
     let result = {
       line: '-',
       column: '-',

@@ -1,6 +1,6 @@
 const config = {
-  hasLessThanXLines: {limit: 600},
-  hasLineAboveXCharacters: {limit: 30},
+  LessThanXLines: {limit: 600},
+  LineAboveXCharacters: {limit: 30},
   firstSectionStartsWithHx: {limit: 3},
   consecutiveBlankLines: {limit: 1},
 };

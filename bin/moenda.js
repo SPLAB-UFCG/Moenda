@@ -1,4 +1,6 @@
-const util = require('./util');
+#!/usr/bin/env node
+
+const util = require('../src/util');
 const os = require('os');
 const {Command} = require('commander');
 const program = new Command();

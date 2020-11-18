@@ -1,13 +1,16 @@
 {
   "dependencies": {
-    "commander": "^6.2.0",
-    "moenda": "^1.0.4"
+    "commander": "^6.2.0"
   },
   "name": "moenda",
   "description": "Moenda is an engine built with Nodejs that analyzes a set of files from editable and user-defined rules and generates a report of these files.",
-  "version": "1.0.4",
+  "version": "1.0.8",
   "readmeFilename": "README.md",
-  "main": "./src/moenda.js",
+  "main": "./bin/moenda.js",
+  "preferGlobal": true,
+  "bin": {
+    "moenda": "./bin/moenda.js"
+  },
   "devDependencies": {
     "eslint": "^7.13.0",
     "eslint-config-airbnb-base": "^14.2.1",
