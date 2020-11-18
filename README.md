@@ -7,7 +7,7 @@ Moenda is an engine built with Nodejs that analyzes a set of files from editable
 ## Installation and Usage:
 
 ```
-$ npm install moenda
+$ npm i moenda
 
 $ ./node_modules/moenda.js --rules <rules-file.js> --path <files-dir/> --exclude <files-extensions> --config <config-file.js>
  
@@ -35,7 +35,7 @@ Use a JavaScript file to specify configuration information for your files. This 
 ```js
 const config = {
   lineCounter: {limit:60},
-  hasLineAboveXCharacters: {limit:30},
+  LineAboveXCharacters: {limit:30},
   firstSectionStartsWithHx: {limit: 3},
   consecutiveBlankLines: {limit: 1}
 }
@@ -48,7 +48,7 @@ After run the command you'll see the report in your terminal.
 $ moenda.js --rules /home/user/md-rules.js --path /home/user/sut --exclude html,java  --config configOne.js
 
 /home/user/sut/file.js
-12:76  error  "This line must not exceed 75 characters."     hasLineAboveXCharacters()
+12:76  error  "This line must not exceed 75 characters."     LineAboveXCharacters()
 51:-  error    "This file is expected to have a maximum of 50 lines"   lineCounter()
 62:- error     "This file is expected to have a maximum of 1 consecutive blank lines"     consecutiveBlankLines()
 
@@ -58,8 +58,8 @@ $ moenda.js --rules /home/user/md-rules.js --path /home/user/sut --exclude html,
 
 /home/user/sut/markdown.md
 1:4     error     The first section of the file does not start with H1     firstSectionStartsWithHx()
-1:4     error     The file does not have increasing and decreasing sections     hasNeighboringSections()
-15:76   error     "This line must not exceed 75 characters."     hasLineAboveXCharacters()
+1:4     error     The file does not have increasing and decreasing sections     NeighboringSections()
+15:76   error     "This line must not exceed 75 characters."     LineAboveXCharacters()
 51:-  error    "This file is expected to have a maximum of 50 lines"   lineCounter()
 
 * 4 problem(s) (4 errors)
@@ -71,10 +71,10 @@ $ moenda.js --rules /home/user/md-rules.js --path /home/user/sut --exclude html,
 ## Built-in Rules:
 
   1. [lineCounter](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L6)  
-  2. [hasLessThanXLines](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L37)  
-  3. [hasLineAboveXCharacters](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L68)    
+  2. [LessThanXLines](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L37)  
+  3. [LineAboveXCharacters](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L68)    
   4. [firstSectionStartsWithHx](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L103)    
-  5. [hasNeighboringSections](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L159)  
+  5. [NeighboringSections](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L159)  
   6. [inconsistencyOfSpaces](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L209)  
   7. [consecutiveBlankLines](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L260)  
 
