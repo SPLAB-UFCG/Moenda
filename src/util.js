@@ -1,10 +1,11 @@
 const fs = require('fs');
 const os = require('os');
 
+
 module.exports = {
   testIfIsFile: function (path) {
     const fileTest = fs.statSync(path);
-    let result = fileTest.isFile();
+    const result = fileTest.isFile();
 
     return result;
   },
@@ -25,13 +26,13 @@ module.exports = {
   },
 
   ignoresExtensions: function (path, extensionsArray) {
-    let result = {status: false};
+    let result = false;
 
     if (extensionsArray !== undefined) {
       const list = extensionsArray.split(',');
       for (let i = 0; i < list.length; i++) {
         if (String(path.split('.')[1]) === list[i]) {
-          result.status = true;
+          result = true;
           break;
         }
       }
@@ -48,7 +49,7 @@ module.exports = {
     for (let i = 0; i < arrayFiles.length; i++) {
       if (this.testIfIsFile(`${path}/${arrayFiles[i]}`) === true) {
         if (
-          this.ignoresExtensions(arrayFiles[i], extensionsArray).status ===
+          this.ignoresExtensions(arrayFiles[i], extensionsArray) ===
           false
         ) {
           result.data[result.data.length] = arrayFiles[i];
@@ -59,14 +60,13 @@ module.exports = {
     return result;
   },
 
-  exitAid: function (program, file) {
+  exitAid: function (program, genericalRules, file) {
     let errors = 0;
     let infos = 0;
-    const functions = Object.values(require(`${program.rules}`));
+    const functions = Object.values(genericalRules).concat(Object.values(require("/home/felipe/fork/Moenda/src/rules/MDRules.js")));
     let returns = [];
     let string = '';
     const config = require(program.config);
-
 
     if (this.testIfIsFile(program.path)) {
       string += program.path + os.EOL;
