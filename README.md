@@ -34,10 +34,10 @@ Use a JavaScript file to specify configuration information for your files. This 
 
 ```js
 const config = {
-  lineCounter: {limit:60},
-  LineAboveXCharacters: {limit:30},
-  firstSectionStartsWithHx: {limit: 3},
-  consecutiveBlankLines: {limit: 1}
+  ruleLineCounter: {limit:60},
+  ruleLineAboveXCharacters: {limit:30},
+  ruleFirstSectionStartsWithHx: {limit: 3},
+  ruleConsecutiveBlankLines: {limit: 1}
 }
 
 module.exports = config;
@@ -48,19 +48,19 @@ After run the command you'll see the report in your terminal.
 $ moenda.js --rules /home/user/md-rules.js --path /home/user/sut --exclude html,java  --config configOne.js
 
 /home/user/sut/file.js
-12:76  error  "This line must not exceed 75 characters."     LineAboveXCharacters()
-51:-  error    "This file is expected to have a maximum of 50 lines"   lineCounter()
-62:- error     "This file is expected to have a maximum of 1 consecutive blank lines"     consecutiveBlankLines()
+12:76  error  "This line must not exceed 75 characters."     ruleLineAboveXCharacters()
+51:-  error    "This file is expected to have a maximum of 50 lines"   ruleLineCounter()
+62:- error     "This file is expected to have a maximum of 1 consecutive blank lines"     ruleConsecutiveBlankLines()
 
 * 4 problem(s) (2 errors)
 * 0 info(s)
 
 
 /home/user/sut/markdown.md
-1:4     error     The first section of the file does not start with H1     firstSectionStartsWithHx()
-1:4     error     The file does not have increasing and decreasing sections     NeighboringSections()
-15:76   error     "This line must not exceed 75 characters."     LineAboveXCharacters()
-51:-  error    "This file is expected to have a maximum of 50 lines"   lineCounter()
+1:4     error     The first section of the file does not start with H1     ruleFirstSectionStartsWithHx()
+1:4     error     The file does not have increasing and decreasing sections     ruleNeighboringSections()
+15:76   error     "This line must not exceed 75 characters."     ruleLineAboveXCharacters()
+51:-  error    "This file is expected to have a maximum of 50 lines"   ruleLineCounter()
 
 * 4 problem(s) (4 errors)
 * 0 info(s)
@@ -70,13 +70,13 @@ $ moenda.js --rules /home/user/md-rules.js --path /home/user/sut --exclude html,
 
 ## Built-in Rules:
 
-  1. [lineCounter](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L6)  
-  2. [LessThanXLines](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L37)  
-  3. [LineAboveXCharacters](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L68)    
-  4. [firstSectionStartsWithHx](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L103)    
-  5. [NeighboringSections](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L159)  
-  6. [inconsistencyOfSpaces](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L209)  
-  7. [consecutiveBlankLines](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L260)  
+  1. [ruleLineCounter](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L6)  
+  2. [ruleLessThanXLines](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L37)  
+  3. [ruleLineAboveXCharacters](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L68)    
+  4. [ruleFirstSectionStartsWithHx](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L103)    
+  5. [ruleNeighboringSections](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L159)  
+  6. [ruleInconsistencyOfSpaces](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L209)  
+  7. [ruleConsecutiveBlankLines](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L260)  
 
 
 
