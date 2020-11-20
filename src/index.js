@@ -3,7 +3,7 @@ const os = require('os');
 const util = require('./util');
 
 module.exports = {
-  lineCounter: function (link, rules) {
+  ruleLineCounter: function (link, rules) {
     let result = {
       line: '-',
       column: '-',
@@ -11,7 +11,7 @@ module.exports = {
       msg: '',
       data: 0,
       toString: '',
-      name: 'lineCounter()',
+      name: 'ruleLineCounter()',
     };
 
     if (util.testIfIsFile(link).status === true) {
@@ -19,11 +19,11 @@ module.exports = {
       result.msg = `The file has ${lines} line(s)`;
       result.data = lines;
 
-      if (rules.lineCounter?.limit !== undefined) {
-        if (lines > rules.lineCounter.limit) {
+      if (rules.ruleLineCounter?.limit !== undefined) {
+        if (lines > rules.ruleLineCounter.limit) {
           result.status = 'error';
-          result.line = rules.lineCounter.limit + 1;
-          result.msg = `This file is expected to have a maximum of ${rules.lineCounter.limit} lines`;
+          result.line = rules.ruleLineCounter.limit + 1;
+          result.msg = `This file is expected to have a maximum of ${rules.ruleLineCounter.limit} lines`;
         }
       }
     }
@@ -33,7 +33,7 @@ module.exports = {
     return result;
   },
 
-  LessThanXLines: function (link, rules) {
+  ruleLessThanXLines: function (link, rules) {
     let result = {
       line: '-',
       column: '-',
@@ -41,7 +41,7 @@ module.exports = {
       msg: '',
       data: 0,
       toString: '',
-      name: 'LessThanXLines()',
+      name: 'ruleLessThanXLines()',
     };
 
     if (util.testIfIsFile(link).status === true) {
@@ -49,11 +49,11 @@ module.exports = {
       result.msg = `The file has ${lines} line(s)`;
       result.data = lines;
 
-      if (rules.LessThanXLines?.limit !== undefined) {
-        if (lines < rules.LessThanXLines.limit) {
+      if (rules.ruleLessThanXLines?.limit !== undefined) {
+        if (lines < rules.ruleLessThanXLines.limit) {
           result.status = 'error';
           result.line = lines;
-          result.msg = `This file is expected to have a minimum of ${rules.LessThanXLines.limit} lines`;
+          result.msg = `This file is expected to have a minimum of ${rules.ruleLessThanXLines.limit} lines`;
         }
       }
     }
@@ -63,7 +63,7 @@ module.exports = {
     return result;
   },
 
-  LineAboveXCharacters: function (link, rules) {
+  ruleLineAboveXCharacters: function (link, rules) {
     const fileTest = fs.statSync(link, 'utf-8');
     let result = {
       status: false,
@@ -76,17 +76,17 @@ module.exports = {
     };
 
     if (fileTest.isFile()) {
-      if (rules.LineAboveXCharacters?.limit !== undefined) {
+      if (rules.ruleLineAboveXCharacters?.limit !== undefined) {
         const file = fs.readFileSync(link, 'utf-8');
         const lines = file.split(os.EOL);
         for (let i = 0; i < lines.length; i++) {
-          if (lines[i].length > rules.LineAboveXCharacters.limit) {
+          if (lines[i].length > rules.ruleLineAboveXCharacters.limit) {
             result.status = 'error';
             result.line = i + 1;
             result.data = lines[i];
             result.column = rules.LineAboveXCharacters.limit + 1;
-            result.msg = `This line must not exceed ${rules.LineAboveXCharacters.limit} characters.`;
-            result.name = 'LineAboveXCharacters()';
+            result.msg = `This line must not exceed ${rules.ruleLineAboveXCharacters.limit} characters.`;
+            result.name = 'ruleLineAboveXCharacters()';
             result.toString = util.toStringGenerate(result);
             return result;
           }
@@ -97,7 +97,7 @@ module.exports = {
     return result;
   },
 
-  firstSectionStartsWithHx: function (link, rules) {
+  ruleFirstSectionStartsWithHx: function (link, rules) {
     let result = {
       status: '',
       line: '-',
@@ -113,15 +113,15 @@ module.exports = {
       const lines = file.split(os.EOL);
       let size = [];
 
-      if (rules.firstSectionStartsWithHx?.limit !== undefined) {
+      if (rules.ruleFirstSectionStartsWithHx?.limit !== undefined) {
         result = {
           status: 'error',
           line: '-',
           column: '-',
-          msg: `The first section of the file does not start with H${rules.firstSectionStartsWithHx.limit}`,
+          msg: `The first section of the file does not start with H${rules.ruleFirstSectionStartsWithHx.limit}`,
           data: '',
           toString: '',
-          name: 'firstSectionStartsWithHx()',
+          name: '',
         };
         for (let i = 0; i < lines.length; i++) {
           if (lines[i].startsWith('#')) {
@@ -135,11 +135,11 @@ module.exports = {
             size[size.length] = [i, aux.length];
             result.column = aux.length;
             result.data = aux;
-            result.name = 'firstSectionStartsWithH1()';
+            result.name = 'ruleFirstSectionStartsWithH1()';
 
             result.line = size[0][0] + 1;
 
-            if (size[0][1] === rules.firstSectionStartsWithHx.limit) {
+            if (size[0][1] === rules.ruleFirstSectionStartsWithHx.limit) {
               result.status = false;
             }
             break;
@@ -152,7 +152,7 @@ module.exports = {
     return result;
   },
 
-  NeighboringSections: function (link, config) {
+  ruleNeighboringSections: function (link, config) {
     let result = {
       status: false,
       line: '-',
@@ -192,7 +192,7 @@ module.exports = {
             'The file does not have increasing and decreasing sections';
           result.column = sizes[i][1];
           result.data = lines[sizes[i][0]];
-          result.name = 'NeighboringSections()';
+          result.name = 'ruleNeighboringSections()';
         }
       }
     }
@@ -202,7 +202,7 @@ module.exports = {
     return result;
   },
 
-  inconsistencyOfSpaces: function (path, config) {
+  ruleInconsistencyOfSpaces: function (path, config) {
     let result = {
       status: false,
       line: '-',
@@ -210,7 +210,7 @@ module.exports = {
       msg: '',
       data: '',
       toString: '',
-      name: 'inconsistencyOfSpaces()',
+      name: 'ruleInconsistencyOfSpaces()',
     };
 
     if (util.testIfIsFile(path).status) {
@@ -253,7 +253,7 @@ module.exports = {
     return result;
   },
 
-  consecutiveBlankLines: function (link, rules) {
+  ruleConsecutiveBlankLines: function (link, rules) {
     let result = {
       line: '-',
       column: '-',
@@ -261,11 +261,11 @@ module.exports = {
       msg: '',
       data: 0,
       toString: '',
-      name: 'consecutiveBlankLines()',
+      name: 'ruleConsecutiveBlankLines()',
     };
 
     if (util.testIfIsFile(link).status === true) {
-      if (rules.consecutiveBlankLines?.limit !== undefined) {
+      if (rules.ruleConsecutiveBlankLines?.limit !== undefined) {
         const lines = fs.readFileSync(link, 'utf-8').split(os.EOL);
         let cont = 0;
 
@@ -273,10 +273,10 @@ module.exports = {
           if (lines[i].trim() === '') {
             cont++;
 
-            if (cont > rules.consecutiveBlankLines.limit) {
+            if (cont > rules.ruleConsecutiveBlankLines.limit) {
               result.status = 'error';
               result.line = i + 1;
-              result.msg = `This file is expected to have a maximum of ${rules.consecutiveBlankLines.limit} consecutive blank lines`;
+              result.msg = `This file is expected to have a maximum of ${rules.ruleConsecutiveBlankLines.limit} consecutive blank lines`;
               break;
             }
           } else {
