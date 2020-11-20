@@ -14,7 +14,7 @@ module.exports = {
       name: 'ruleLineCounter()',
     };
 
-    if (util.testIfIsFile(link).status === true) {
+    if (util.testIfIsFile(link) === true) {
       const lines = fs.readFileSync(link, 'utf-8').split(os.EOL).length;
       result.msg = `The file has ${lines} line(s)`;
       result.data = lines;
@@ -44,7 +44,7 @@ module.exports = {
       name: 'ruleLessThanXLines()',
     };
 
-    if (util.testIfIsFile(link).status === true) {
+    if (util.testIfIsFile(link) === true) {
       const lines = fs.readFileSync(link, 'utf-8').split(os.EOL).length;
       result.msg = `The file has ${lines} line(s)`;
       result.data = lines;
@@ -108,7 +108,7 @@ module.exports = {
       name: '',
     };
 
-    if (util.testIfIsFile(link).status === true && link.endsWith('.md')) {
+    if (util.testIfIsFile(link) === true && link.endsWith('.md')) {
       const file = fs.readFileSync(link, 'utf-8');
       const lines = file.split(os.EOL);
       let size = [];
@@ -163,7 +163,7 @@ module.exports = {
       name: '',
     };
 
-    if (util.testIfIsFile(link).status === true && link.endsWith('.md')) {
+    if (util.testIfIsFile(link) === true && link.endsWith('.md')) {
       const file = fs.readFileSync(link, 'utf-8');
       const lines = file.split(os.EOL);
       let sizes = [];
@@ -213,7 +213,7 @@ module.exports = {
       name: 'ruleInconsistencyOfSpaces()',
     };
 
-    if (util.testIfIsFile(path).status) {
+    if (util.testIfIsFile(path)) {
       const file = fs.readFileSync(path, 'utf-8');
       const lines = file.split(os.EOL);
       let sizes = [];
@@ -264,7 +264,7 @@ module.exports = {
       name: 'ruleConsecutiveBlankLines()',
     };
 
-    if (util.testIfIsFile(link).status === true) {
+    if (util.testIfIsFile(link) === true) {
       if (rules.ruleConsecutiveBlankLines?.limit !== undefined) {
         const lines = fs.readFileSync(link, 'utf-8').split(os.EOL);
         let cont = 0;

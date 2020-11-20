@@ -3,13 +3,8 @@ const os = require('os');
 
 module.exports = {
   testIfIsFile: function (path) {
-    let result = {status: false};
     const fileTest = fs.statSync(path);
-    result.status = fileTest.isFile();
-
-    if (result.status === true) {
-      result.msg = 'the path passed corresponds to a file';
-    }
+    let result = fileTest.isFile();
 
     return result;
   },
@@ -51,7 +46,7 @@ module.exports = {
     const arrayFiles = fs.readdirSync(path);
 
     for (let i = 0; i < arrayFiles.length; i++) {
-      if (this.testIfIsFile(`${path}/${arrayFiles[i]}`).status === true) {
+      if (this.testIfIsFile(`${path}/${arrayFiles[i]}`) === true) {
         if (
           this.ignoresExtensions(arrayFiles[i], extensionsArray).status ===
           false
@@ -73,7 +68,7 @@ module.exports = {
     const config = require(program.config);
 
 
-    if (this.testIfIsFile(program.path).status) {
+    if (this.testIfIsFile(program.path)) {
       string += program.path + os.EOL;
 
       for (let j = 0; j < functions.length; j++) {
