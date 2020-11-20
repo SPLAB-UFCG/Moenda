@@ -24,7 +24,7 @@ function main() {
       parameter += program.exclude;
     }
 
-    const array = util.directoryFiles(program.path, parameter).data;
+    const array = util.directoryFiles(program.path, parameter);
 
     for (let i = 0; i < array.length; i++) {
       util.exitAid(program, genericRules, array[i]);

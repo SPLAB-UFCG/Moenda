@@ -42,7 +42,7 @@ module.exports = {
   },
 
   directoryFiles: function (path, extensionsArray) {
-    let result = {status: 'info', data: []};
+    let result = [];
 
     const arrayFiles = fs.readdirSync(path);
 
@@ -52,7 +52,7 @@ module.exports = {
           this.ignoresExtensions(arrayFiles[i], extensionsArray) ===
           false
         ) {
-          result.data[result.data.length] = arrayFiles[i];
+          result [result.length] = arrayFiles[i];
         }
       }
     }
