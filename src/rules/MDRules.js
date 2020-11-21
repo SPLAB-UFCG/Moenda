@@ -3,6 +3,12 @@ const fs = require("fs");
 const os = require('os');
 
 module.exports = {
+  /**
+   * Analyzes whether the first section of the file is of the determined order.
+   * 
+   * @param {*} link File path.
+   * @param {*} rules Rules file.
+   */
   ruleFirstSectionStartsWithHx: function (link, rules) {
     let result = {
       status: '',
@@ -27,7 +33,7 @@ module.exports = {
           msg: `The first section of the file does not start with H${rules.ruleFirstSectionStartsWithHx.limit}`,
           data: '',
           toString: '',
-          name: '',
+          name: 'ruleFirstSectionStartsWithHx()',
         };
         for (let i = 0; i < lines.length; i++) {
           if (lines[i].startsWith('#')) {
@@ -41,7 +47,6 @@ module.exports = {
             size[size.length] = [i, aux.length];
             result.column = aux.length;
             result.data = aux;
-            result.name = 'ruleFirstSectionStartsWithH1()';
   
             result.line = size[0][0] + 1;
   
@@ -58,6 +63,12 @@ module.exports = {
     return result;
   },
   
+  /**
+   * Analyzes whether sections have inconsistencies.
+   * 
+   * @param {*} link File path.
+   * @param {*} rules Rules file.
+   */
   ruleNeighboringSections: function (link, config) {
     let result = {
       status: false,

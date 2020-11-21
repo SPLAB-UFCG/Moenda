@@ -1,13 +1,15 @@
-
+const util = require('../util');
 const fs = require('fs');
 const os = require('os');
 
-
-
 module.exports = {
-  
+  /**
+   * Counts the file lines.
+   * 
+   * @param {*} link File path.
+   * @param {*} rules Rules file.
+   */
   ruleLineCounter: function (link, rules) {
-    const util = require('../util');
     let result = {
       line: '-',
       column: '-',
@@ -37,8 +39,12 @@ module.exports = {
     return result;
   },
 
+  /**
+   * Evaluates whether a file has fewer lines than necessary.
+   * @param {*} link File path.
+   * @param {*} rules Rules file.
+   */
   ruleLessThanXLines: function (link, rules) {
-    const util = require('../util');
     let result = {
       line: '-',
       column: '-',
@@ -69,8 +75,13 @@ module.exports = {
     return result;
   },
 
+  /**
+   * Evaluates whether a line has more characters than allowed.
+   * 
+   * @param {*} link File path.
+   * @param {*} rules Rules file.
+   */
   ruleLineAboveXCharacters: function (link, rules) {
-    const util = require('../util');
     const fileTest = fs.statSync(link, 'utf-8');
     let result = {
       status: false,
@@ -105,8 +116,13 @@ module.exports = {
     return result;
   },
 
+  /**
+   * It finds spaces inconsistency.
+   * 
+   * @param {*} link File path.
+   * @param {*} rules Rules file.
+   */
   ruleInconsistencyOfSpaces: function (path, config) {
-    const util = require('../util');
     let result = {
       status: false,
       line: '-',
@@ -157,8 +173,13 @@ module.exports = {
     return result;
   },
 
+  /**
+   * Analyzes whether the file has more consecutive blank lines than allowed.
+   * 
+   * @param {*} link File path.
+   * @param {*} rules Rules file.
+   */
   ruleConsecutiveBlankLines: function (link, rules) {
-    const util = require('../util');
     let result = {
       line: '-',
       column: '-',

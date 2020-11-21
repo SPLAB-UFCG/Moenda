@@ -1,3 +1,5 @@
+//Configure optional settings for the rules.
+
 const config = {
   ruleLessThanXLines: {limit: 600},
   ruleLineAboveXCharacters: {limit: 30},
