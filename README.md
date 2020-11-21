@@ -71,19 +71,19 @@ $ moenda.js --rules /home/user/md-rules.js --path /home/user/sut --exclude html,
 ## Built-in Rules:
 
   1. [ruleLineCounter](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L6)  
-    * Counts the file lines.
+    ##### Counts the file lines.
   2. [ruleLessThanXLines](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L37)  
-    * Evaluates whether a file has fewer lines than necessary.
+    ###### Evaluates whether a file has fewer lines than necessary.
   3. [ruleLineAboveXCharacters](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L68)    
-    * Evaluates whether a line has more characters than allowed.
+    ##### Evaluates whether a line has more characters than allowed.
   4. [ruleFirstSectionStartsWithHx](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L103)    
-    * Analyzes whether the first section of the file is of the determined order.
+    ##### Analyzes whether the first section of the file is of the determined order.
   5. [ruleNeighboringSections](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L159)  
-    * Analyzes whether sections have inconsistencies.
+    ##### Analyzes whether sections have inconsistencies.
   6. [ruleInconsistencyOfSpaces](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L209)  
-    * It finds spaces inconsistency.
+    ##### It finds spaces inconsistency.
   7. [ruleConsecutiveBlankLines](https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L260)  
-    * Analyzes whether the file has more consecutive blank lines than allowed.
+    ##### Analyzes whether the file has more consecutive blank lines than allowed.
 
 
 
