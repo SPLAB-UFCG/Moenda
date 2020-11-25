@@ -17,7 +17,7 @@ module.exports = {
 
         if (this.textSearch(lines[i], i) !== undefined){
           result.data.push(this.textSearch(lines[i], i));
-          result.sections += this.textSearch(lines[i], i).quantity;
+          result.texts += this.textSearch(lines[i], i).quantity;
         }
 
         if (this.listsSearch(lines[i], i) !== undefined){
