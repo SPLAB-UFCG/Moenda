@@ -144,7 +144,6 @@ module.exports = {
     }
 
     if (auxMD.indexOf("<https:") !== -1){
-      console.log("oi");
       for (let i = positions[0]; i < positions[1]; i++){
         link += line[i];
       }
@@ -158,14 +157,12 @@ module.exports = {
     let result = {type: "code", value: "", line: lineNumber + 1, quantity: 0};
     let positions = [];
     let aux = "";
-    let cont = 0;
-    
+    let cont = 0; 
     
     for (let i = 0; i < line.length; i++){
       if (line[i] === "`" && line[i+1] !== "`"){
         positions.push(i);
         cont++;
-        console.log(cont);
       }
     }
 
@@ -180,9 +177,6 @@ module.exports = {
 
       cont -= 2;
     }
-
-    
-
 
     if (result.value.length !== 0){
       return result;
