@@ -3,7 +3,9 @@
 const util = require('../src/util');
 const {Command} = require('commander');
 const program = new Command();
-const genericRules = require("../src/rules/genericRules");
+const genericRules = require("../src/rules/genericRules/genericRules");
+const mdContext = require("../src/context/MDContext/MDContext");
+
 program.version('0.0.1');
 
 //Building the CLI
@@ -11,7 +13,8 @@ program
   .option('-r, --rules <type>', 'Rules file')
   .option('-p, --path <type>', 'Archive for analysis')
   .option('-e, --exclude <type>', 'Exclude Extensions')
-  .option('-c, --config <type>', 'Configurations');
+  .option('-c, --config <type>', 'Configurations')
+  .option('-t, --context <type>', 'Contexts')
 
 program.parse(process.argv);
 
@@ -21,6 +24,11 @@ program.parse(process.argv);
 function main() {
   if (util.testIfIsFile(program.path) === true) {
     util.exitAid(program, genericRules);
+
+    if (program.context === "true"){
+      mdContext.contextGenerator(program.path);
+    }
+    
   } else {
     let parameter = '';
 
@@ -34,6 +42,9 @@ function main() {
 
     for (let i = 0; i < array.length; i++) {
       util.exitAid(program, genericRules, array[i]);
+      if (program.context === "true"){
+        mdContext.contextGenerator(array[i]);
+      }
     }
   }
 }
