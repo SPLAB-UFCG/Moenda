@@ -170,12 +170,10 @@ module.exports = {
     }
 
     while (cont >= 2){
-      console.log(positions);
       for (let i = positions[0]; i < positions[1]; i++){
         aux += line[i];
       }
       result.value += aux + " || ";
-      console.log(positions);
       aux = "";
       result.quantity++;
       positions = positions.slice(0,2);
