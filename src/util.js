@@ -131,7 +131,7 @@ module.exports = {
     string += os.EOL + '* ' + errors + ` problem(s) (${errors} errors)` + os.EOL;
     string += '* ' + infos + ' info(s)' + os.EOL;
 
-    console.log(string);
+    return string;
   },
 
   /**

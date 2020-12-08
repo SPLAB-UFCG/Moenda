@@ -16,6 +16,7 @@ Basic Configuration:
  --path                This option allows you to specify the path to the file(s) to be analyzed.
  --config              This option allows you to specify an additional configuration file for Moenda.
  --exclude             This option allows you to specify which file extensions Moenda must ignore.(optional)
+ --context             This option allows you to generate a context for markdown files. (optional)
 ```
    
 #### Rules
@@ -65,6 +66,44 @@ $ moenda.js --rules /home/user/md-rules.js --path /home/user/sut --exclude html,
 * 4 problem(s) (4 errors)
 * 0 info(s)
   
+$ moenda --rules /home/felipe/fork/Moenda/src/rules/MD/MDRules.js --path /home/felipe/fork/Moenda/README.md --config /home/felipe/fork/Moenda/src/config.js --context true
+
+
+/home/felipe/fork/Moenda/README.md
+-:-     info     The file has 94 line(s)     ruleLineCounter()
+1:1     error     The first section of the file does not start with H3     ruleFirstSectionStartsWithHx()
+5:31     error     This line must not exceed 30 characters.     ruleLineAboveXCharacters()
+30:-     error     This file is expected to have a maximum of 1 consecutive blank lines     ruleConsecutiveBlankLines()
+45:4     error     The file does not have increasing and decreasing sections     ruleNeighboringSections()
+94:-     error     This file is expected to have a minimum of 600 lines     ruleLessThanXLines()
+
+* 5 problem(s) (5 errors)
+* 1 info(s)
+{ 
+  [
+    { type: 'inLineCode', value: '`--path || ', line: 25, quantity: 1 },
+    {
+      type: 'link',
+      value: 'https://github.com/SPLAB-UFCG/Moenda/blob/master/src/index.js#L260',
+      line: 85,
+      quantity: 1
+    },
+    {
+      type: 'text',
+      value: '    - Analyzes whether the file has more consecutive blank lines than allowed.',
+      line: 86,
+      quantity: 1
+    },
+    { type: 'section', value: 2, line: 91, quantity: 1 },
+    { type: 'text', value: 'MIT © Moenda', line: 93, quantity: 1 }
+  ],
+  sections: 1,
+  links: 1,
+  lists: 0,
+  images: 0,
+  inLineCode: 1,
+  texts: 2
+}
 
 ```
 

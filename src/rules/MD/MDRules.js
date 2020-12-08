@@ -64,7 +64,7 @@ module.exports = {
   },
   
   /**
-   * Analyzes whether sections have inconsistencies.
+   * Analyzes whether sections have inconsistencies, like # followed by ####.
    * 
    * @param {*} link File path.
    * @param {*} rules Rules file.

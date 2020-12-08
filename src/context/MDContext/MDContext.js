@@ -6,47 +6,48 @@ module.exports = {
   contextGenerator: function(path){
     if (path.endsWith('.md')) {
       const lines = fs.readFileSync(path, 'utf-8').split(os.EOL);
-      let result = {data: [], sections: 0, links: 0, 
-        emphasis:0, lists: 0, images: 0, quotes: 0, code: 0, tables: 0, texts: 0};
+      let result = {data: [], sections: 0, links: 0, lists: 0, images: 0, inLineCode: 0, texts: 0};
       
       for (let i = 0; i < lines.length; i++){
-        if (this.sectionsSearch(lines[i], i) !== undefined){
+        if (this.sectionsSearch(lines[i], i) !== null){
           result.data.push(this.sectionsSearch(lines[i], i));
           result.sections += this.sectionsSearch(lines[i], i).quantity;
         }
 
-        if (this.textSearch(lines[i], i) !== undefined){
+        if (this.textSearch(lines[i], i) !== null){
           result.data.push(this.textSearch(lines[i], i));
           result.texts += this.textSearch(lines[i], i).quantity;
         }
 
-        if (this.listsSearch(lines[i], i) !== undefined){
+        if (this.listsSearch(lines[i], i) !== null){
           result.data.push(this.listsSearch(lines[i], i));
           result.lists += this.listsSearch(lines[i], i).quantity;
         }
 
-        if (this.orderedListsSearch(lines[i], i) !== undefined){
+        if (this.orderedListsSearch(lines[i], i) !== null){
           result.data.push(this.orderedListsSearch(lines[i], i));
           result.lists += this.orderedListsSearch(lines[i], i).quantity;
         }
 
-        if (this.linkSearch(lines[i], i) !== undefined){
+        if (this.linkSearch(lines[i], i) !== null){
           result.data.push(this.linkSearch(lines[i], i));
           result.links += this.linkSearch(lines[i], i).quantity;
         }
         
-        if (this.directLinkSearch(lines[i], i) !== undefined){
+        if (this.directLinkSearch(lines[i], i) !== null){
           result.data.push(this.directLinkSearch(lines[i], i));
           result.links += this.directLinkSearch(lines[i], i).quantity;
         }
 
-        if (this.inLineCodeSearch(lines[i], i) !== undefined){
+        if (this.inLineCodeSearch(lines[i], i) !== null){
           result.data.push(this.inLineCodeSearch(lines[i], i));
-          result.code += this.inLineCodeSearch(lines[i], i).quantity;
+          result.inLineCode += this.inLineCodeSearch(lines[i], i).quantity;
         }
       }
       
-      console.log(result);
+      return result;
+    } else {
+      return null;
     }
   },
 
@@ -61,10 +62,12 @@ module.exports = {
         }
       }
 
-      result.value = aux.length;
+      result.value = aux;
 
       return result;
-    }
+    } else {
+      return null;
+    } 
   },
 
   listsSearch: function(line, lineNumber){
@@ -72,23 +75,27 @@ module.exports = {
       let result = {type: "list", value: "*", line: lineNumber + 1, quantity: 1};
 
       return result;
-    }
+    } else {
+      return null;
+    } 
   },
 
   orderedListsSearch: function(line, lineNumber){
     for (let i = 0; i < 7500; i++){
       if (line.startsWith(i + '. ')) {
-        let result = {type: "ordered List", value: i, line: lineNumber + 1, quantity: 1};
+        let result = {type: "ordered List", value: line, line: lineNumber + 1, quantity: 1};
   
         return result;
-      }
+      } else {
+        return null;
+      } 
     }
   },
 
   textSearch: function(line, lineNumber){
     let result = {type: "text", value: "", line: lineNumber + 1, quantity: 1};
 
-    if (!line.startsWith('```') && !line.startsWith('* ') && !line.startsWith('#') && line.trim() != ""){
+    if (!this.orderedListsSearch(line, lineNumber) && !this.listsSearch(line, lineNumber) && !this.sectionsSearch(line, lineNumber) && line.trim() != ""){
       for (let i = 0; i < 7500; i++){
         if (!line.startsWith(i + '. ')) {
           result.value = line;
@@ -96,6 +103,8 @@ module.exports = {
           return result;
         }
       }
+    } else {
+      return null;
     } 
   },
 
@@ -127,7 +136,9 @@ module.exports = {
       result.value = link;
 
       return result;
-    }
+    } else {
+      return null;
+    } 
   },
 
   directLinkSearch: function(line, lineNumber){
@@ -155,11 +166,13 @@ module.exports = {
       result.value = link;
 
       return result;
-    }
+    } else {
+      return null;
+    } 
   },
 
   inLineCodeSearch: function(line, lineNumber){
-    let result = {type: "code", value: "", line: lineNumber + 1, quantity: 0};
+    let result = {type: "inLineCode", value: "", line: lineNumber + 1, quantity: 0};
     let positions = [];
     let aux = "";
     let cont = 0; 
@@ -185,7 +198,9 @@ module.exports = {
 
     if (result.value.length !== 0){
       return result;
-    }
+    } else {
+      return null;
+    } 
   },
 
 }

@@ -22,13 +22,12 @@ program.parse(process.argv);
  * Analyzes whether the informed path corresponds to a file or a directory, then calls the function that constructs the output.
  */
 function main() {
-  if (util.testIfIsFile(program.path) === true) {
-    util.exitAid(program, genericRules);
+  if (util.testIfIsFile(program.path)) {
+    console.log(util.exitAid(program, genericRules));
 
     if (program.context === "true"){
-      mdContext.contextGenerator(program.path);
+      console.log(mdContext.contextGenerator(program.path));
     }
-    
   } else {
     let parameter = '';
 
@@ -39,11 +38,12 @@ function main() {
      * Creates an array with the files in the directory informed by program.path, ignoring the extensions informed in program.exclude.
      */
     const array = util.directoryFiles(program.path, parameter);
-
+    
     for (let i = 0; i < array.length; i++) {
-      util.exitAid(program, genericRules, array[i]);
+      console.log(util.exitAid(program, genericRules, array[i]));
       if (program.context === "true"){
-        mdContext.contextGenerator(array[i]);
+        if (mdContext.contextGenerator(array[i]) !== null)
+        console.log(mdContext.contextGenerator(array[i]));
       }
     }
   }
