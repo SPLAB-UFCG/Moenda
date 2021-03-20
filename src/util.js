@@ -72,7 +72,6 @@ module.exports = {
     let string = '';
     const config = require(program.config);
 
-
     if (this.testIfIsFile(program.path).status) {
       string += program.path + os.EOL;
 
@@ -91,16 +90,12 @@ module.exports = {
 
       for (let j = 0; j < functions.length; j++) {
         if (
-          functions[j](`${program.path}/${file}`, config).status ===
-          'error'
+          functions[j](`${program.path}/${file}`, config).status === 'error'
         ) {
           returns.push(functions[j](`${program.path}/${file}`, config));
           errors++;
         }
-        if (
-          functions[j](`${program.path}/${file}`, config).status ===
-          'info'
-        ) {
+        if (functions[j](`${program.path}/${file}`, config).status === 'info') {
           returns.push(functions[j](`${program.path}/${file}`, config));
           infos++;
         }
@@ -130,5 +125,4 @@ module.exports = {
 
     console.log(string);
   },
-
 };
