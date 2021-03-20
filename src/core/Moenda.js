@@ -1,7 +1,10 @@
 const path = require('path');
-
-const {getOptions} = require(path.resolve(__dirname, '../loader'));
-const Linter = require(path.resolve(__dirname, './Linter.js'));
+const {getOptions} = require(
+  path.resolve(__dirname, '../loader')
+);
+const Linter = require(
+  path.resolve(__dirname, './Linter.js')
+);
 
 class Moenda {
   constructor(options) {
@@ -10,12 +13,11 @@ class Moenda {
     this.linter = new Linter(
       this.config.rules,
       this.config.processor,
-      this.config.parser
+      this.config.parser,
     );
   }
 
   reporter(payload) {
-    console.log(payload)
     this.results.push(payload);
   }
 
@@ -27,7 +29,7 @@ class Moenda {
     );
   }
 
-  getResults(){
+  getResults() {
     return this.results;
   }
 }

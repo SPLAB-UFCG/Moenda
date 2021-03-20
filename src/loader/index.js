@@ -3,7 +3,7 @@ const path = require('path');
 const markdownInt = require('markdown-it');
 
 const parsers = {
-  md: markdownInt({ html: true}),
+  md: markdownInt({html: true}),
 };
 
 function normalizeConfig(options) {
@@ -16,18 +16,12 @@ function normalizeConfig(options) {
 }
 
 function getOptions(options) {
-  const {
-    files: filesPath,
-    parser,
-    processor,
-    rules,
-    rulesConfig
-  } = options;
-  const files = filesPath.map((filePath) =>
-    fs.readFileSync(filePath, 'utf-8'),
+  const {files: filesPath, parser, processor, rules, rulesConfig} = options;
+  const files = filesPath.map(
+    (filePath) => fs.readFileSync(filePath, 'utf-8')
   );
   const missingProperty = normalizeConfig(options);
-  if (missingProperty)
+  if (missingProperty) 
     throw `Missing property: ${CONFIG_FILENAME}\n`;
 
   return {
