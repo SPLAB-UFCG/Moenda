@@ -1,3 +1,8 @@
+const path = require('path')
+const {parseCommentSuppression} = require(
+  path.resolve(__dirname, '../utils/linterUtils.js')
+);
+
 class Linter {
   constructor(rules, processor, parser) {
     this.rules = rules;
@@ -10,7 +15,13 @@ class Linter {
     const context = this.processor(tokens);
     const params = {context, config};
 
-    this.rules.forEach((rule) => {
+    const disabledRules = parseCommentSuppression(tokens)
+    const enabledRules = this.rules.filter(
+      (rule) => !disabledRules.hasOwnProperty(rule.name)
+    )
+    console.log(enabledRules)
+
+    enabledRules.forEach((rule) => {
       rule.run(params, report);
     });
   }
