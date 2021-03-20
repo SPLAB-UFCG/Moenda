@@ -1,29 +1,34 @@
-const fs = require('fs');
 const path = require('path');
+
+const {getOptions} = require(path.resolve(__dirname, '../loader'));
 const Linter = require(path.resolve(__dirname, './Linter.js'));
-const {createContext} = require(path.resolve(__dirname, './processor.js'));
-const rules = require(path.resolve(__dirname, '../rules'));
 
 class Moenda {
-  constructor(config) {
+  constructor(options) {
     this.results = [];
-    this.config = config;
-    this.linter = new Linter(rules, createContext);
+    this.config = getOptions(options);
+    this.linter = new Linter(
+      this.config.rules,
+      this.config.processor,
+      this.config.parser
+    );
   }
 
   reporter(payload) {
+    console.log(payload)
     this.results.push(payload);
   }
 
   runRules() {
-    const file = fs.readFileSync(
-      path.resolve(__dirname, '../teste.md'),
-      'utf-8',
+    const {files, rulesConfig} = this.config;
+    const reporter = this.reporter.bind(this);
+    files.forEach((file) => 
+      this.linter.verify(file, reporter, rulesConfig)
     );
-    this.linter.verify(file, this.reporter.bind(this));
-    /*files.forEach(
-            (file) => this.linter.verify(file, this.reporter)
-        )*/
+  }
+
+  getResults(){
+    return this.results;
   }
 }
 
