@@ -1,10 +1,6 @@
 const path = require('path');
-const {getOptions} = require(
-  path.resolve(__dirname, '../loader')
-);
-const Linter = require(
-  path.resolve(__dirname, './Linter.js')
-);
+const {getOptions} = require(path.resolve(__dirname, '../loader'));
+const Linter = require(path.resolve(__dirname, './linter.js'));
 
 class Moenda {
   constructor(options) {
@@ -19,21 +15,19 @@ class Moenda {
 
   reporter(ruleName, filePath) {
     return (payload) => {
-        this.results.push({
-          ruleName,
-          filePath,
-          column: 0,
-          ...payload
-        });
-    }
+      this.results.push({
+        ruleName,
+        filePath,
+        column: 0,
+        ...payload,
+      });
+    };
   }
 
   runRules() {
     const {files, rulesConfig} = this.config;
     const reporter = this.reporter.bind(this);
-    files.forEach((file) => 
-      this.linter.verify(file, reporter, rulesConfig)
-    );
+    files.forEach((file) => this.linter.verify(file, reporter, rulesConfig));
   }
 
   getResults() {

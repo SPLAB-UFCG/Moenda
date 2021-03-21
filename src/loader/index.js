@@ -17,24 +17,21 @@ function normalizeConfig(options) {
 
 function getOptions(options) {
   const {
-    files: filesPath, 
-    parser, 
+    files: filesPath,
+    parser,
     processor,
     rulesConfig,
-    rules: rulesPath
+    rules: rulesPath,
   } = options;
-  const files = filesPath.map(
-    (filePath) => ({
-      path: filePath,
-      content: fs.readFileSync(filePath, 'utf-8')
-    })
-  ); // check if it's not an array
+  const files = filesPath.map((filePath) => ({
+    path: filePath,
+    content: fs.readFileSync(filePath, 'utf-8'),
+  })); // check if it's not an array
   const rules = require(rulesPath);
   const enabledRules = rules.filter((rule) => rule !== false);
 
   const missingProperty = normalizeConfig(options);
-  if (missingProperty) 
-    throw `Missing property: ${CONFIG_FILENAME}\n`;
+  if (missingProperty) throw `Missing property: ${CONFIG_FILENAME}\n`;
 
   return {
     files,
