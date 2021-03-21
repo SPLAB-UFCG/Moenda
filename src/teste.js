@@ -1,7 +1,6 @@
 const path = require('path');
 
-const Moenda = require(path.resolve(__dirname, './core/Moenda.js'));
-
+const moenda = require(path.resolve(__dirname, './core/Moenda.js'));
 
 const config = {
   h1: {p: 'required', h2: 'required'},
