@@ -1,11 +1,11 @@
 const path = require('path');
-const {getOptions} = require(path.resolve(__dirname, '../loader'));
+const {translateOptions} = require(path.resolve(__dirname, '../loader'));
 const Linter = require(path.resolve(__dirname, './linter.js'));
 
 class Moenda {
   constructor(options) {
     this.results = [];
-    this.config = getOptions(options);
+    this.config = translateOptions(options);
     this.linter = new Linter(
       this.config.rules,
       this.config.processor,

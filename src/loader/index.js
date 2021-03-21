@@ -14,6 +14,10 @@ function isMissingProperty(options) {
 }
 
 function translateOptions(options) {
+  if (isMissingProperty(options)){
+    throw `Missing property: ${CONFIG_FILENAME}\n`;
+  }
+  
   const {
     files: filesPath,
     parser,
@@ -27,10 +31,6 @@ function translateOptions(options) {
   }));
   const rules = require(rulesPath);
   const enabledRules = rules.filter((rule) => rule !== false);
-
-  if (isMissingProperty(options)){
-    throw `Missing property: ${CONFIG_FILENAME}\n`;
-  }
 
   return {
     files,
