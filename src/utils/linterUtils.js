@@ -5,9 +5,13 @@ function parseCommentSuppression(tokens) {
   
   tokens.forEach((token) => {
     const match = SUPRESSION_COMMENT_RE.exec(token.content);
-    const [_, disabled, ruleName] = match || [];
-    if (disabled == 'disable') disabledRules[ruleName.trim()] = true;
-  }); // check when have more than one
+    const [_, disabled, ruleNames] = match || [];
+    if (disabled == 'disable'){
+      ruleNames.forEach(
+        (ruleName) => disabledRules[ruleName.trim()] = true
+      )
+    }
+  });
 
   return disabledRules;
 }

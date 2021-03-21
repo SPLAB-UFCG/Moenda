@@ -7,7 +7,7 @@
   "description": "Moenda is an engine built with Nodejs that analyzes a set of files from editable and user-defined rules and generates a report of these files.",
   "version": "1.0.8",
   "readmeFilename": "README.md",
-  "main": "./bin/moenda.js",
+  "main": "./src/index.js",
   "preferGlobal": true,
   "bin": {
     "moenda": "./bin/moenda.js"
