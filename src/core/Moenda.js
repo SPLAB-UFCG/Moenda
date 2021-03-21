@@ -17,8 +17,15 @@ class Moenda {
     );
   }
 
-  reporter(payload) {
-    this.results.push(payload);
+  reporter(ruleName, filePath) {
+    return (payload) => {
+        this.results.push({
+          ruleName,
+          filePath,
+          column: 0,
+          ...payload
+        });
+    }
   }
 
   runRules() {

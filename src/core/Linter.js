@@ -10,8 +10,8 @@ class Linter {
     this.processor = processor;
   }
 
-  verify(content, report, config) {
-    const tokens = this.parser.parse(content);
+  verify(file, report, config) {
+    const tokens = this.parser.parse(file.content);
     const context = this.processor(tokens);
     const params = {context, config};
 
@@ -19,10 +19,9 @@ class Linter {
     const enabledRules = this.rules.filter(
       (rule) => !disabledRules.hasOwnProperty(rule.name)
     )
-    console.log(enabledRules)
 
     enabledRules.forEach((rule) => {
-      rule.run(params, report);
+      rule.run(params, report(rule.name, file.path));
     });
   }
 }

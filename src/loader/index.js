@@ -24,7 +24,10 @@ function getOptions(options) {
     rules: rulesPath
   } = options;
   const files = filesPath.map(
-    (filePath) => fs.readFileSync(filePath, 'utf-8')
+    (filePath) => ({
+      path: filePath,
+      content: fs.readFileSync(filePath, 'utf-8')
+    })
   ); // check if it's not an array
   const rules = require(rulesPath);
   const enabledRules = rules.filter((rule) => rule !== false);

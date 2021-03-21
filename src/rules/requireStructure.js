@@ -1,5 +1,5 @@
 const path = require('path');
-
+const SEVERITY_ERROR = 2; // error 
 function getTokensRegex(tokens) {
   return Object.entries(tokens).map(([key, value]) =>
     value === 'optional' ? `(${key})?` : key,
@@ -33,9 +33,10 @@ function transverseTree(structure, currentNode, onError) {
     const tagsRepresentation = nodeTags.map((child) => child.node.tag).join('');
     if (!tagsRepresentation.match(tokensRegex)) {
       onError({
-        lineNumber: currentNode.node.map[0],
+        line: currentNode.node.map[0],
         detail: 'Your section is not following the recommended structure',
         context: currentNode.children[0].node.content,
+        severity: SEVERITY_ERROR
       });
     }
   }
