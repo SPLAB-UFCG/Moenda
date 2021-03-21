@@ -14,10 +14,11 @@ function isMissingProperty(options) {
 }
 
 function translateOptions(options) {
-  if (isMissingProperty(options)){
-    throw `Missing property: ${CONFIG_FILENAME}\n`;
+  const missingProperty = isMissingProperty(options)
+  if (missingProperty){
+    throw `Missing property: ${missingProperty}\n`;
   }
-  
+
   const {
     files: filesPath,
     parser,
