@@ -14,8 +14,8 @@ function isMissingProperty(options) {
 }
 
 function translateOptions(options) {
-  const missingProperty = isMissingProperty(options)
-  if (missingProperty){
+  const missingProperty = isMissingProperty(options);
+  if (missingProperty) {
     throw `Missing property: ${missingProperty}\n`;
   }
 
@@ -26,10 +26,14 @@ function translateOptions(options) {
     rulesConfig,
     rules: rulesPath,
   } = options;
-  const files = Array.from(filesPath).map((filePath) => ({
-    path: filePath,
-    content: fs.readFileSync(filePath, 'utf-8'),
-  }));
+  const filesPathList = Array.isArray(filesPath) ? filesPath : [filesPath];
+  const files = filesPathList.map((filePath) => {
+    console.log(filePath);
+    return {
+      path: filePath,
+      content: fs.readFileSync(filePath, 'utf-8'),
+    };
+  });
   const rules = require(rulesPath);
   const enabledRules = rules.filter((rule) => rule !== false);
 

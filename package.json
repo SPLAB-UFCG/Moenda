@@ -21,7 +21,7 @@
   "scripts": {
     "test": "npm install -g moenda",
     "lint": "eslint --cache \"src/**/*.js\"",
-    "prettier": "prettier --config .prettierrc --write \"src/**/*.js\""
+    "prettier": "prettier --config .prettierrc --write \"./**/*.js\""
   },
   "repository": {
     "type": "git",
