@@ -35,7 +35,7 @@ function translateOptions(options) {
     };
   });
   const rules = require(rulesPath);
-  const enabledRules = rules.filter((rule) => rule !== false);
+  const enabledRules = rules.filter((rule) => !rule);
 
   return {
     files,
