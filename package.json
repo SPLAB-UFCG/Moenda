@@ -1,12 +1,13 @@
 {
   "dependencies": {
-    "commander": "^6.2.0"
+    "commander": "^6.2.0",
+    "markdown-it": "^12.0.4"
   },
   "name": "moenda",
   "description": "Moenda is an engine built with Nodejs that analyzes a set of files from editable and user-defined rules and generates a report of these files.",
   "version": "1.0.8",
   "readmeFilename": "README.md",
-  "main": "./bin/moenda.js",
+  "main": "./src/index.js",
   "preferGlobal": true,
   "bin": {
     "moenda": "./bin/moenda.js"
@@ -20,7 +21,7 @@
   "scripts": {
     "test": "npm install -g moenda",
     "lint": "eslint --cache \"src/**/*.js\"",
-    "prettier": "prettier --config .prettierrc --write \"src/**/*.js\""
+    "prettier": "prettier --config .prettierrc --write \"./**/*.js\""
   },
   "repository": {
     "type": "git",
