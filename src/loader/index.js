@@ -27,15 +27,12 @@ function translateOptions(options) {
     rules: rulesPath,
   } = options;
   const filesPathList = Array.isArray(filesPath) ? filesPath : [filesPath];
-  const files = filesPathList.map((filePath) => {
-    console.log(filePath);
-    return {
+  const files = filesPathList.map((filePath) => ({
       path: filePath,
       content: fs.readFileSync(filePath, 'utf-8'),
-    };
-  });
+    }));
   const rules = require(rulesPath);
-  const enabledRules = rules.filter((rule) => !rule);
+  const enabledRules = rules.filter((rule) => !!rule);
 
   return {
     files,

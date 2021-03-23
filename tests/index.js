@@ -19,6 +19,6 @@ const moenda = new Moenda({
   rulesConfig: config,
 });
 
-console.dir(moenda.runRules());
-setTimeout(() => console.log('a'), 0);
+moenda.runRules();
+setTimeout(() => console.log('finish'), 0);
 console.log(moenda.getResults());
