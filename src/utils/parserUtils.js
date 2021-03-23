@@ -1,11 +1,14 @@
-const SUPRESSION_COMMENT_RE = /<!--\s*docs-checker-(?:(disable))((?:\s+[a-z0-9-]+)*)\s*-->/gi;
-
-function parseCommentSuppression(tokens) {
+function parseCommentSuppression(tokens, comment) {
   const disabledRules = {};
 
   tokens.forEach((token) => {
-    const match = SUPRESSION_COMMENT_RE.exec(token.content);
-    const [_, disabled, ruleNames] = match || [];
+    const matches = token.content.match(
+      new RegExp(
+        `<!--\\s*${comment}-(?:(disable))((?:\\s+[a-z0-9-]+)*)\\s*-->`,
+        'i',
+      ),
+    );
+    const [_, disabled, ruleNames] = matches || [];
     if (disabled == 'disable') {
       ruleNames
         .split(' ')

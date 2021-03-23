@@ -3,12 +3,15 @@ const path = require('path');
 const Moenda = require(path.resolve(__dirname, '../src/core/Moenda.js'));
 
 const config = {
-  h1: {p: 'required', h2: 'required'},
-  h2: [{p: 'required', code: 'optional', h3: 'optional'}, {h3: 'required'}],
-  h3: [
-    {p: 'required', code: 'required'},
-    {p: 'required', table: 'required'},
-  ],
+  structure: {
+    h1: {p: 'required', h2: 'required'},
+    h2: [{p: 'required', code: 'optional', h3: 'optional'}, {h3: 'required'}],
+    h3: [
+      {p: 'required', code: 'required'},
+      {p: 'required', table: 'required'},
+    ],
+  },
+  comment: 'docs-checker',
 };
 
 const moenda = new Moenda({

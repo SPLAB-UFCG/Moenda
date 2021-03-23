@@ -22,27 +22,27 @@ class Moenda {
     };
   }
 
-  verify(file, report, config) {
+  verify(file) {
     const tokens = this.config.parser.parse(file.content);
     const context = this.config.processor(tokens);
-    const params = {context, config};
+    const reporter = this.reporter.bind(this);
+    const {rulesConfig} = this.config;
+    const params = {context, config: rulesConfig.structure};
 
-    const disabledRules = parseCommentSuppression(tokens);
+    const disabledRules = parseCommentSuppression(tokens, rulesConfig.comment);
     const enabledRules = this.config.rules.filter(
       (rule) => !disabledRules.hasOwnProperty(rule.name),
     );
 
     enabledRules.forEach((rule) => {
-      rule.run(params, report(rule.name, file.path));
+      rule.run(params, reporter(rule.name, file.path));
     });
   }
 
   runRules() {
-    const {files, rulesConfig} = this.config;
-    const reporter = this.reporter.bind(this);
-    files.forEach((file) => this.verify(file, reporter, rulesConfig));
+    const {files} = this.config;
+    files.forEach((file) => this.verify(file));
   }
-
 
   getResults() {
     return this.results;
