@@ -1,8 +1,10 @@
 const fs = require('fs');
 const os = require('os');
-const util = require('./util');
+const util = require(path.resolve(__dirname, './util.js'));
+const Moenda = require(path.resolve(__dirname, './core/Moenda.js'));
 
 module.exports = {
+  Moenda,
   lineCounter: function (link, rules) {
     let result = {
       line: '-',
@@ -289,5 +291,5 @@ module.exports = {
     result.toString = util.toStringGenerate(result);
 
     return result;
-  },
+  }
 };
