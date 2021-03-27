@@ -27,15 +27,16 @@ class Moenda {
     const context = this.config.processor(tokens);
     const reporter = this.reporter.bind(this);
     const {rulesConfig} = this.config;
-    const params = {context, config: rulesConfig.structure};
 
     const disabledRules = parseCommentSuppression(tokens, rulesConfig.comment);
     const enabledRules = this.config.rules.filter(
       (rule) => !disabledRules.hasOwnProperty(rule.name),
     );
-
+    
     enabledRules.forEach((rule) => {
-      rule.run(params, reporter(rule.name, file.path));
+      rule.run(
+        {context, config: rulesConfig[rule.name]}, 
+        reporter(rule.name, file.path));
     });
   }
 

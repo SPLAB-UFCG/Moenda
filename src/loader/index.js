@@ -24,14 +24,13 @@ function translateOptions(options) {
     parser,
     processor,
     rulesConfig,
-    rules: rulesPath,
+    rules,
   } = options;
   const filesPathList = Array.isArray(filesPath) ? filesPath : [filesPath];
   const files = filesPathList.map((filePath) => ({
     path: filePath,
     content: fs.readFileSync(filePath, 'utf-8'),
   }));
-  const rules = require(rulesPath);
   const enabledRules = rules.filter((rule) => !!rule);
 
   return {
