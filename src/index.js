@@ -1,5 +1,6 @@
 const fs = require('fs');
 const os = require('os');
+const path = require('path');
 const util = require(path.resolve(__dirname, './util.js'));
 const Moenda = require(path.resolve(__dirname, './core/Moenda.js'));
 
@@ -291,5 +292,5 @@ module.exports = {
     result.toString = util.toStringGenerate(result);
 
     return result;
-  }
+  },
 };

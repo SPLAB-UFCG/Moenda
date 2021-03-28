@@ -7,15 +7,15 @@ const {parseCommentSuppression} = require(path.resolve(
 
 class Moenda {
   constructor(options) {
-    this.results = [];
+    this.results = {};
     this.config = translateOptions(options);
   }
 
   reporter(ruleName, filePath) {
+    this.results[filePath] = [];
     return (payload) => {
-      this.results.push({
+      this.results[filePath].push({
         ruleName,
-        filePath,
         column: 0,
         ...payload,
       });
@@ -32,11 +32,12 @@ class Moenda {
     const enabledRules = this.config.rules.filter(
       (rule) => !disabledRules.hasOwnProperty(rule.name),
     );
-    
+
     enabledRules.forEach((rule) => {
       rule.run(
-        {context, config: rulesConfig[rule.name]}, 
-        reporter(rule.name, file.path));
+        {context, config: rulesConfig[rule.name]},
+        reporter(rule.name, file.path),
+      );
     });
   }
 

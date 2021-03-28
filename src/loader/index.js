@@ -19,13 +19,7 @@ function translateOptions(options) {
     throw `Missing property: ${missingProperty}\n`;
   }
 
-  const {
-    files: filesPath,
-    parser,
-    processor,
-    rulesConfig,
-    rules,
-  } = options;
+  const {files: filesPath, parser, processor, rulesConfig, rules} = options;
   const filesPathList = Array.isArray(filesPath) ? filesPath : [filesPath];
   const files = filesPathList.map((filePath) => ({
     path: filePath,

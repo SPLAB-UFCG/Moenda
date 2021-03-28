@@ -51,6 +51,6 @@ module.exports = {
   tags: ['md', 'structure'],
   run: function rule(params, onError) {
     const {context, config} = params;
-    transverseTree(config, context, onError);
+    transverseTree(config.structure, context, onError);
   },
 };
